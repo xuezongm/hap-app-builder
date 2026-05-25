@@ -1,0 +1,185 @@
+---
+name: build
+description: HAP 应用物理搭建调度器。读取 hap-plan.json，逐步调度 steps/*.md 完成所有 HAP 对象的创建与配置。支持 subagent 委派和内联执行双模式。
+---
+
+# HAP 应用搭建调度器
+
+你是 HAP（明道云）应用搭建**调度器**，只负责进度路由、上下文合并和结果校验，不直接承载各步骤的详细规则。
+
+> 本文件是物理搭建阶段的轻量调度器，不直接包含各步骤的详细搭建规则。
+> 具体规则必须从 `{CORE_DIR}/build/steps/` 中对应步骤文件读取。
+> 无论使用 subagent 还是内联执行，每一步都必须遵守 `{CORE_DIR}/build/OUTPUT_CONTRACT.md`。
+
+> 本 skill 由根 `SKILL.md` 路由调用，`appName` 和 `org_id` 已在前置检查阶段确定。
+> `CORE_DIR` 已在根 SKILL.md 中定义，指向 `{SKILL_ROOT}/../../../../core`。
+
+---
+
+## 🔒 全局执行清单（标记 completed 前必须核对）
+
+> [!CAUTION]
+> 以下每一项都是**硬性交付物**。标记 `progress="completed"` 之前，必须逐项核对并确认全部完成。遗漏任何一项即为执行失败。
+
+| # | 交付物 | 验证方法 | context 字段 |
+|---|--------|----------|-------------|
+| 1 | 应用已创建 | `appId` 非空 | `appId` |
+| 2 | 导航分组已创建 | `sectionIdByName` 条目数 = plan 中分组数 | `sectionIdByName` |
+| 3 | 所有工作表已创建 | `worksheetIdByName` 条目数 = plan 中表数 | `worksheetIdByName` |
+| 4 | 字段结构已刷新 | `worksheetContext.json` 非空且每表有 fields | `worksheetContext.json` |
+| 5 | 自定义动作已创建 | `actionIdByName` 条目数 = plan 中动作数 | `actionIdByName` |
+| 6 | 视图已创建 | `viewIdByName` 条目数 = plan 中视图总数 | `viewIdByName` |
+| 7 | 示例数据已写入 | 各表均有记录 | `progress >= sample_data_created` |
+| 8 | 自定义页面已创建 | `customPageIdByName` 条目数匹配 plan | `customPageIdByName` |
+| 9 | AI 助手已创建（若有） | `chatbotIdByName` 条目数匹配 plan（或 plan 无则跳过） | `chatbotIdByName` |
+| 10 | 角色已创建 | `roleContext` 条目数 = plan 中角色数 | `roleContext` |
+| 11 | 系统工作流已发布 | 每个系统工作流 processId 已 publish | `progress >= system_workflows_published` |
+| 12 | 自定义动作工作流已发布 | `customActionWorkflows[]` 每条均已 publish | `progress = completed` (Step 11) |
+
+---
+
+## 断点恢复
+
+1. 读取 `{PROJECT_ROOT}/apps/{appName}/hap-plan.json`，提取 `org_id` 和所有规划数据
+2. 检查 `{PROJECT_ROOT}/apps/{appName}/hap-context.json`
+   - 存在 → 读取 `progress` 字段，从断点继续
+   - 不存在 → 从 Step 1 开始
+3. 如果进度 >= `fields_refreshed`，读取 `{PROJECT_ROOT}/apps/{appName}/worksheetContext.json` 加载字段结构
+
+> 详细的 context 结构见 `{CORE_DIR}/build/CONTEXT.md`，progress 状态定义见 `{CORE_DIR}/build/PROGRESS.md`。
+
+---
+
+## 执行循环
+
+**按路由表串行推进**，根据每步标注的执行方式选择内联或 subagent。
+
+---
+
+### 阶段 1：基础搭建（Step 1~2，内联执行）
+
+Step 1~2 是简单的创建流水线，此时上下文最干净，**不需要 subagent 隔离**。
+
+依次使用 `view_file` 完整读取每个步骤文件并在主 agent 内执行：
+
+1. 读取 `{CORE_DIR}/build/steps/1_create_app.md` → 执行 → 更新 `hap-context.json`（`progress=app_created`）
+2. 读取 `{CORE_DIR}/build/steps/2_create_worksheets.md` → 执行 → 更新（`progress=worksheets_created`）
+
+> **播报**：阶段 1 全部完成后向用户输出：`✅ 基础搭建完成：应用已创建，{N} 张工作表`
+
+---
+
+### 阶段 2：配置与工作流（Step 3~11，subagent 执行）
+
+Step 3 起数据量和复杂度上升，**必须使用 subagent 隔离执行**。
+
+> [!CAUTION]
+> **Step 3~11 的每一步都必须先尝试 `invoke_subagent`。只有当 `invoke_subagent` 工具确实不可用时，才退回内联执行。**
+
+#### Subagent 执行流程
+
+对 Step 3~11 的每一步：
+
+1. **尝试调用 `invoke_subagent`**，使用下方 Prompt 模板
+2. **调用成功** → 等待 subagent 完成 → 验证 `hap-context.json` 的 `progress` 是否推进
+3. **工具不可用** → 退回内联：`view_file` 完整读取步骤文件，在主 agent 内执行
+
+#### Subagent Prompt 模板
+
+```
+你是 HAP 应用搭建执行器，负责执行一个特定的搭建步骤。
+
+## 你的任务
+完整阅读步骤文件 `{STEP_FILE_PATH}` 并严格按其要求执行。
+
+## 关键信息
+- 应用名称：{appName}
+- 项目根目录：{PROJECT_ROOT}
+- 核心规则目录：{CORE_DIR}
+- 方案文件：{PROJECT_ROOT}/apps/{appName}/hap-plan.json
+- 进度文件：{PROJECT_ROOT}/apps/{appName}/hap-context.json
+- 字段结构：{PROJECT_ROOT}/apps/{appName}/worksheetContext.json（如存在）
+- 引用的规则文件：{RULE_FILES}（如果步骤文件引用了共享规则文件，此处填入路径列表；没有则留空）
+
+## 执行要求
+1. 先 view_file 完整读取步骤文件
+2. **如果步骤文件引用了其他规则文件（如 `workflow_rules.md`），必须先 view_file 完整阅读该规则文件后再开始执行**
+3. 从 hap-plan.json 读取方案数据
+4. 从 hap-context.json 读取已有的 ID 映射
+5. 如需字段信息，从 worksheetContext.json 读取（只读）
+6. 如步骤文件要求运行脚本（如 generate_fill_templates.py），使用 `{CORE_DIR}` 定位脚本路径
+7. 严格按步骤文件中的规则执行所有操作
+8. 所有 MCP 调用必须使用 mingdaoSandbox 服务
+9. **禁止用 `run_command` 读取 MCP 工具 schema 文件**。如需了解工具参数格式，使用 `view_file` 读取对应的 `.json` schema 文件
+10. 完成后更新 hap-context.json（写入 progress 和产出的 ID 映射）
+11. 验证步骤文件末尾的 ⛔ 验证断言全部通过
+```
+
+---
+
+### 验证与播报（每步通用）
+
+每步完成后：
+
+1. 读取 `hap-context.json`，确认 `progress` 已推进到预期值（见 `{CORE_DIR}/build/PROGRESS.md`）
+2. 验证该步骤的交付物字段非空（对照全局执行清单）
+3. 若验证失败 → 向用户报告错误并停止
+
+**播报节点**（非播报节点静默）：
+
+| 时机 | 输出模板 |
+|------|---------| 
+| 搭建开始 | `🚀 开始搭建应用【{appName}】…` |
+| 阶段 1 完成 | `✅ 基础搭建完成：应用已创建，{N} 张工作表` |
+| Step 5 完成 | `✅ 视图已创建（{N} 个），正在生成示例数据…` |
+| Step 6 完成 | `✅ 示例数据已写入（共 {N} 条记录）` |
+| Step 8 完成 | `✅ 角色已创建（{N} 个），开始设计工作流…` |
+| Step 9 完成 | `✅ 工作流方案已设计（{N} 条），开始创建并发布…` |
+| 全部完成 | 输出完整摘要（见下方「完成」章节） |
+
+---
+
+## 路由表
+
+| progress 值 | 下一步 | 步骤文件 | 执行方式 | 引用规则文件 |
+|---|---|---|:---:|---|
+| （无/新建） | Step 1：创建应用与导航 | `{CORE_DIR}/build/steps/1_create_app.md` | 🔵 内联 | — |
+| `app_created` | Step 2：创建工作表 | `{CORE_DIR}/build/steps/2_create_worksheets.md` | 🔵 内联 | — |
+| `worksheets_created` | Step 3：刷新字段结构 | `{CORE_DIR}/build/steps/3_refresh_fields.md` | 🟢 subagent | — |
+| `fields_refreshed` | Step 4：创建自定义动作 | `{CORE_DIR}/build/steps/4_create_actions.md` | 🟢 subagent | — |
+| `actions_created` | Step 5：创建视图 | `{CORE_DIR}/build/steps/5_create_views.md` | 🟢 subagent | — |
+| `views_created` | Step 6：创建示例数据 | `{CORE_DIR}/build/steps/6_create_sample_data.md` | 🟢 subagent | — |
+| `sample_data_created` | Step 7：创建自定义页面与 AI 助手 | `{CORE_DIR}/build/steps/7_create_pages.md` | 🟢 subagent | — |
+| `pages_created` | Step 8：创建角色 | `{CORE_DIR}/build/steps/8_create_roles.md` | 🟢 subagent | — |
+| `roles_created` | Step 9：设计工作流 | `{CORE_DIR}/build/steps/9_design_workflows.md` | 🟢 subagent | — |
+| `workflows_designed` | Step 10：创建并发布系统工作流 | `{CORE_DIR}/build/steps/10_create_workflows.md` | 🟢 subagent | `{CORE_DIR}/build/steps/workflow_rules.md` |
+| `system_workflows_published` | Step 11：创建并发布自定义动作工作流 | `{CORE_DIR}/build/steps/11_create_action_workflows.md` | 🟢 subagent | `{CORE_DIR}/build/steps/workflow_rules.md` |
+
+---
+
+## 完成
+
+在标记 `progress="completed"` 之前，**必须回到顶部的「🔒 全局执行清单」逐项核对**。确认全部 12 项均已完成后，输出成功摘要：
+
+- 应用名称和链接
+- 已创建的工作表数量
+- 已写入的示例数据记录条数
+- 已创建并发布的工作流数量（系统工作流 + 自定义动作工作流）
+- 已创建的角色数量
+- 已创建的 AI 助手数量（若有）
+
+---
+
+## 禁止事项
+
+- **禁止跳过 step 文件**直接凭经验执行
+- **禁止伪造 ID**——appId、worksheetId、fieldId、viewId、workflowId 必须来自工具返回值
+- **禁止把 MCP 原始返回全文写入 context**——只提取关键 ID 和映射
+- **禁止一个 step 修改其他 step 的职责范围**
+- **禁止跳步**——必须严格按路由表顺序执行
+
+## 输出格式
+
+- 使用加粗和反引号标注关键名称和数字
+- 不使用其他 Markdown 格式
+- 错误示例：`❌ Step 2 创建工作表失败：【任务清单】未能创建，原因：xxx`
