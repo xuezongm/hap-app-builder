@@ -11,33 +11,38 @@
 
 ## 跨 IDE 支持
 
-本项目采用 `core/` + `adapters/` 分层架构：
-
-- `core/`：平台无关的业务规则（Plan 规范、Build 步骤、状态定义、输出契约）
-- `adapters/`：各 IDE 的运行适配层
-
 | IDE | 状态 |
 |-----|------|
 | Antigravity | ✅ 可用 |
 | Claude Code | 📋 计划中 |
 | OpenAI Codex | 📋 计划中 |
+| Cursor | 📋 计划中 |
+
+`skills/hap-app-builder/` 是 Antigravity 可直接运行的自包含 Skill。`adapters/` 预留了其他 IDE 的适配层。
 
 ## 快速开始（Antigravity IDE）
 
-详见 [adapters/antigravity/INSTALL.md](adapters/antigravity/INSTALL.md)
+### 1. 安装插件
 
 ```bash
-# 1. 克隆仓库
-git clone https://github.com/<your-username>/hap-app-builder.git ~/hap-app-builder
-
-# 2. 创建插件软链
-ln -s ~/hap-app-builder/adapters/antigravity \
+git clone https://github.com/<your-username>/hap-app-builder.git \
   ~/.gemini/config/plugins/hap-app-builder-plugin
-
-# 3. 配置 mingdaoSandbox MCP 服务（连接 https://api3.mingdao.com/mcp）
-
-# 4. 在 Antigravity IDE 中输入「帮我搭建一个客户管理应用」
 ```
+
+### 2. 配置 MCP 服务
+
+在 Antigravity IDE 的 MCP 配置中添加名为 `mingdaoSandbox` 的服务：
+
+- 连接地址：`https://api3.mingdao.com/mcp`
+- 服务名称必须为 `mingdaoSandbox`
+
+### 3. 开始使用
+
+在 Antigravity IDE 中输入：
+
+> 帮我搭建一个客户管理应用
+
+AI 会自动进入 HAP 应用搭建流程。
 
 ## 前置依赖
 
@@ -49,48 +54,37 @@ ln -s ~/hap-app-builder/adapters/antigravity \
 
 ```
 hap-app-builder/
-├── core/                              # 平台无关核心规则
-│   ├── plan/                          # 方案设计规范
-│   │   ├── design_guide.md            # 平台设计指南
-│   │   ├── 1a_plan_overview.md        # 方案总览生成规范
-│   │   ├── 1b_plan_schema.md          # 方案 JSON 结构规范
-│   │   ├── icon_and_style_guide.md    # 视觉主题与图标规范
-│   │   └── scripts/
-│   │       └── scan_apps.cjs          # 应用扫描脚本
-│   │
-│   └── build/                         # 搭建步骤与状态定义
-│       ├── CONTEXT.md                 # hap-context.json 结构定义
-│       ├── PROGRESS.md                # 进度状态机定义
-│       ├── OUTPUT_CONTRACT.md         # 步骤输出契约
-│       ├── resources/
-│       │   └── sample_images.json     # 示例数据图片资源
-│       ├── scripts/
-│       │   └── generate_fill_templates.py
-│       └── steps/                     # 11 个搭建步骤
-│           ├── 1_create_app.md
-│           ├── 2_create_worksheets.md
-│           ├── ...
-│           └── workflow_rules.md
+├── plugin.json                        # Antigravity 插件描述
+├── skills/
+│   └── hap-app-builder/               # 自包含 Skill（Antigravity 直接加载）
+│       ├── SKILL.md                   # 根入口
+│       ├── plan/                      # 方案设计
+│       │   ├── SKILL.md
+│       │   ├── design_guide.md
+│       │   ├── 1a_plan_overview.md
+│       │   ├── 1b_plan_schema.md
+│       │   ├── icon_and_style_guide.md
+│       │   └── scripts/scan_apps.cjs
+│       └── build/                     # 物理搭建
+│           ├── SKILL.md
+│           ├── CONTEXT.md
+│           ├── PROGRESS.md
+│           ├── OUTPUT_CONTRACT.md
+│           ├── resources/sample_images.json
+│           ├── scripts/generate_fill_templates.py
+│           └── steps/                 # 11 个搭建步骤
 │
-├── adapters/
-│   ├── antigravity/                   # Antigravity IDE 适配层
-│   │   ├── plugin.json
-│   │   ├── INSTALL.md
-│   │   └── skills/
-│   │       └── hap-app-builder/
-│   │           ├── SKILL.md           # 根入口
-│   │           ├── plan/SKILL.md      # Plan 入口
-│   │           └── build/SKILL.md     # Build 入口
-│   │
-│   ├── claude-code/                   # Claude Code 适配（计划中）
-│   └── codex/                         # OpenAI Codex 适配（计划中）
+├── adapters/                          # 其他 IDE 适配层（计划中）
+│   ├── claude-code/
+│   ├── codex/
+│   └── cursor/
 │
 ├── README.md
 ├── LICENSE
 └── .gitignore
 ```
 
-## 搭建流程概览
+## 搭建流程
 
 ```
 用户描述需求
