@@ -9,4 +9,4 @@
 - `skills/hap-app-builder/SKILL.md` — Agent Skill 入口
 - `.codex/agents/` — Subagent 定义
 
-核心规则复用 `core/` 目录，仅需编写 Codex 特有的入口和路由逻辑。
+核心规则复用 `skills/hap-app-builder/` 中的 plan / build 文件，仅需编写 Codex 特有的入口和路由逻辑。

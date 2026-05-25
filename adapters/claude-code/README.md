@@ -9,4 +9,4 @@
 - `.claude/agents/` — Subagent 定义
 - `.mcp.json` — MCP 服务配置
 
-核心规则复用 `core/` 目录，仅需编写 Claude Code 特有的入口和路由逻辑。
+核心规则复用 `skills/hap-app-builder/` 中的 plan / build 文件，仅需编写 Claude Code 特有的入口和路由逻辑。
