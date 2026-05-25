@@ -17,7 +17,7 @@
 |-----|------|---------|
 | Antigravity | ✅ 可用 | 直接 clone 到插件目录 |
 | Claude Code | 📋 适配层开发中 | clone 仓库 → 配置 skill 引用 + MCP |
-| OpenAI Codex | 📋 适配层开发中 | clone 仓库 → 注册 Agent Skill + MCP |
+| OpenAI Codex | ✅ 可用 | skill-installer 从 GitHub 安装 |
 | Cursor | 📋 适配层开发中 | clone 仓库 → 配置 MCP |
 
 ---
@@ -53,21 +53,24 @@ claude mcp add mingdaoSandbox https://api3.mingdao.com/mcp
 
 ---
 
-### OpenAI Codex 📋
-
-> 适配层开发中，以下为预计步骤。
+### OpenAI Codex ✅
 
 ```bash
-# 1. clone 仓库
-git clone https://github.com/xuezongm/hap-app-builder.git ~/hap-app-builder
+# 1. 在 Codex 中安装 skill
+python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
+  --repo xuezongm/hap-app-builder \
+  --path skills/hap-app-builder
 
-# 2. 配置 MCP（在 .codex/config.toml 或用户级配置中添加）
+# 2. 配置 MCP（在 ~/.codex/config.toml 中添加）
 # [mcp_servers.mingdaoSandbox]
 # url = "https://api3.mingdao.com/mcp"
+# bearer_token_env_var = "HAP-Appkey=<key>&HAP-Sign=<sign>"
+# enabled = true
 
-# 3. 注册 Agent Skill（适配层完成后）
-# 参考 adapters/codex/README.md
+# 3. 重启 Codex，然后输入「帮我搭建一个客户管理应用」
 ```
+
+详见 [adapters/codex/README.md](adapters/codex/README.md)。
 
 ---
 
