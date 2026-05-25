@@ -33,9 +33,9 @@ AI 必须首先尝试调用明道云 MCP 工具 `get_time` 来验证沙箱连通
   **解决办法**：请配置连接到 `https://api3.mingdao.com/mcp` 的 MCP 服务（建议服务名称为 `mingdaoSandbox`），配置完成后重新运行。
   ```
 
-> **MCP 工具调用**：使用当前环境可用的 MCP 调用方式。在 Antigravity 中通过 `call_mcp_tool`（ServerName: mingdaoSandbox）调用；在 Codex 中 MCP 工具被扁平注册，直接调用 `get_time` 等工具名即可；在 Claude Code 中通过 `use_mcp_tool`（server_name: mingdaoSandbox）调用。
+> **MCP 工具调用**：使用当前环境可用的 MCP 调用方式调用明道云工具（如 `get_time`、`get_org_list`、`create_app` 等）。
 >
-> **读取文件**：使用当前环境可用的文件读取工具。在 Antigravity 中使用 `view_file`；在 Codex 中使用 `exec_command` 读取文件内容，例如 `sed -n '1,260p' <file>`；在 Claude Code 中使用 `read_file`。
+> **读取文件**：使用当前环境可用的文件读取工具读取文件内容。
 
 ### 2. 确定项目根目录（PROJECT_ROOT）
 
