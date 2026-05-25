@@ -33,9 +33,7 @@ AI 必须首先尝试调用明道云 MCP 工具 `get_time` 来验证沙箱连通
   **解决办法**：请配置连接到 `https://api3.mingdao.com/mcp` 的 MCP 服务（建议服务名称为 `mingdaoSandbox`），配置完成后重新运行。
   ```
 
-> **MCP 工具调用**：使用当前环境可用的 MCP 调用方式调用明道云工具（如 `get_time`、`get_org_list`、`create_app` 等）。
->
-> **读取文件**：使用当前环境可用的文件读取工具读取文件内容。
+
 
 ### 2. 确定项目根目录（PROJECT_ROOT）
 
