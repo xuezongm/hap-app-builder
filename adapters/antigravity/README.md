@@ -17,7 +17,7 @@ hap-app-builder/          ← 仓库根 = 插件根
 ## 安装
 
 ```bash
-git clone <repo-url> ~/.gemini/config/plugins/hap-app-builder-plugin
+git clone https://github.com/xuezongm/hap-app-builder.git ~/.gemini/config/plugins/hap-app-builder-plugin
 ```
 
 ## MCP 配置

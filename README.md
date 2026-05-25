@@ -25,7 +25,7 @@
 ### 1. 安装插件
 
 ```bash
-git clone https://github.com/<your-username>/hap-app-builder.git \
+git clone https://github.com/xuezongm/hap-app-builder.git \
   ~/.gemini/config/plugins/hap-app-builder-plugin
 ```
 
