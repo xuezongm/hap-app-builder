@@ -9,52 +9,84 @@
 - **断点恢复**：搭建过程中断后可从上次进度继续
 - **示例数据**：自动生成贴近真实场景的示例数据
 
-## 跨 IDE 支持
+## 安装与使用
 
-| IDE | 状态 |
-|-----|------|
-| Antigravity | ✅ 可用 |
-| Claude Code | 📋 计划中 |
-| OpenAI Codex | 📋 计划中 |
-| Cursor | 📋 计划中 |
+`skills/hap-app-builder/` 是自包含的 Skill，各 IDE 的安装方式不同：
 
-`skills/hap-app-builder/` 是 Antigravity 可直接运行的自包含 Skill。`adapters/` 预留了其他 IDE 的适配层。
+| IDE | 状态 | 安装方式 |
+|-----|------|---------|
+| Antigravity | ✅ 可用 | 直接 clone 到插件目录 |
+| Claude Code | 📋 适配层开发中 | clone 仓库 → 配置 skill 引用 + MCP |
+| OpenAI Codex | 📋 适配层开发中 | clone 仓库 → 注册 Agent Skill + MCP |
+| Cursor | 📋 适配层开发中 | clone 仓库 → 配置 MCP |
 
-## 快速开始（Antigravity IDE）
+---
 
-### 1. 安装插件
+### Antigravity IDE ✅
 
 ```bash
 git clone https://github.com/xuezongm/hap-app-builder.git \
   ~/.gemini/config/plugins/hap-app-builder-plugin
 ```
 
-### 2. 配置 MCP 服务
+配置 MCP：添加名为 `mingdaoSandbox` 的服务，连接 `https://api3.mingdao.com/mcp`。
 
-在 `~/.gemini/config/mcp_config.json` 中添加 `mingdaoSandbox` 服务。鉴权使用明道云的 `md_pss_id` Token，拼接在 URL 参数中：
+使用：在对话中输入「帮我搭建一个客户管理应用」。
 
-```json
-{
-  "mcpServers": {
-    "mingdaoSandbox": {
-      "serverUrl": "https://api3.mingdao.com/mcp?Authorization=md_pss_id%20<你的Token>",
-      "disabled": false
-    }
-  }
-}
+---
+
+### Claude Code 📋
+
+> 适配层开发中，以下为预计步骤。
+
+```bash
+# 1. clone 仓库
+git clone https://github.com/xuezongm/hap-app-builder.git ~/hap-app-builder
+
+# 2. 配置 MCP（项目级）
+cd your-project
+claude mcp add mingdaoSandbox https://api3.mingdao.com/mcp
+
+# 3. 将 skill 引用到项目（适配层完成后）
+# 参考 adapters/claude-code/README.md
 ```
 
-> ⚠️ 服务名称**必须**为 `mingdaoSandbox`，Skill 会严格检查这个名称。
+---
 
-**如何获取 Token**：登录明道云 → 个人设置 → API 密钥 → 复制 `md_pss_id` 值。URL 中空格需编码为 `%20`。
+### OpenAI Codex 📋
 
-### 3. 开始使用
+> 适配层开发中，以下为预计步骤。
 
-在 Antigravity IDE 中输入：
+```bash
+# 1. clone 仓库
+git clone https://github.com/xuezongm/hap-app-builder.git ~/hap-app-builder
 
-> 帮我搭建一个客户管理应用
+# 2. 配置 MCP（在 .codex/config.toml 或用户级配置中添加）
+# [mcp_servers.mingdaoSandbox]
+# url = "https://api3.mingdao.com/mcp"
 
-AI 会自动进入 HAP 应用搭建流程。
+# 3. 注册 Agent Skill（适配层完成后）
+# 参考 adapters/codex/README.md
+```
+
+---
+
+### Cursor 📋
+
+> 适配层开发中，以下为预计步骤。
+
+```bash
+# 1. clone 仓库
+git clone https://github.com/xuezongm/hap-app-builder.git ~/hap-app-builder
+
+# 2. 配置 MCP
+# 在 Cursor Settings → MCP 中添加 mingdaoSandbox 服务
+
+# 3. 引用 skill 文件（适配层完成后）
+# 参考 adapters/cursor/README.md
+```
+
+> **所有 IDE 共用前提**：需要明道云账号及 MCP 授权 Token，MCP 服务名称必须为 `mingdaoSandbox`。
 
 ## 前置依赖
 
