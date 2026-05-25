@@ -15,7 +15,7 @@
    python3 {SKILL_DIR}/build/scripts/generate_fill_templates.py \
      {PROJECT_ROOT}/apps/{appName}/worksheetContext.json
    ```
-   脚本输出 `fillTemplates.json` 到 `worksheetContext.json` 同目录。然后 `view_file` 读取 `fillTemplates.json`。后续所有 `batch_create_records` 调用中的 `fields[].id` **只能使用 fillTemplates 中每个字段的 `fieldKey`**，不得从 worksheetContext.json 手动查找，不得凭记忆或推测。
+   脚本输出 `fillTemplates.json` 到 `worksheetContext.json` 同目录。然后读取 `fillTemplates.json`。后续所有 `batch_create_records` 调用中的 `fields[].id` **只能使用 fillTemplates 中每个字段的 `fieldKey`**，不得从 worksheetContext.json 手动查找，不得凭记忆或推测。
    > `{SKILL_DIR}` = 步骤文件所在路径的上两级目录（即 `build/scripts/` 的父目录）
 1. **物理拓扑排序执行**：按 `fillTemplates` 中每张表的 `relationDeps`（关联依赖表名列表）排序创建顺序（`relationDeps` 为空的主数据表最先 → 依赖主数据的表 → 链条末端表）。严禁乱序创建，防止因必填 Relation 缺失导致物理写入报错。
 2. **内存级联绑定与拉取兜底结合**：
@@ -105,7 +105,7 @@
 ### 图片类资源
 为了保证应用封面的美观度和真实的业务场景感，遇到需要填充图片或附件的场景时，**必须从 `build/resources/sample_images.json` 中获取直链**。
 
-1. 你必须通过 `view_file` 工具读取该文件（路径：`{SKILL_DIR}/build/resources/sample_images.json`）。
+1. 你必须读取该文件（路径：`{SKILL_DIR}/build/resources/sample_images.json`）。
 2. 该 JSON 包含动态更新的分类及关键词数据。请在读取后，根据当前生成示例数据的字段语义，从现存分类和图片中挑选最契合的图片，并随机选择一条 URL。
 3. 如果没有特别合适的，**必须**从现存图片中挑选一个最接近/最不违和的。
 4. **禁止使用固定不变的单调图片**，以保证列表页/看板的配图丰富且美观。
