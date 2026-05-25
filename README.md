@@ -31,10 +31,22 @@ git clone https://github.com/xuezongm/hap-app-builder.git \
 
 ### 2. 配置 MCP 服务
 
-在 Antigravity IDE 的 MCP 配置中添加名为 `mingdaoSandbox` 的服务：
+在 `~/.gemini/config/mcp_config.json` 中添加 `mingdaoSandbox` 服务。鉴权使用明道云的 `md_pss_id` Token，拼接在 URL 参数中：
 
-- 连接地址：`https://api3.mingdao.com/mcp`
-- 服务名称必须为 `mingdaoSandbox`
+```json
+{
+  "mcpServers": {
+    "mingdaoSandbox": {
+      "serverUrl": "https://api3.mingdao.com/mcp?Authorization=md_pss_id%20<你的Token>",
+      "disabled": false
+    }
+  }
+}
+```
+
+> ⚠️ 服务名称**必须**为 `mingdaoSandbox`，Skill 会严格检查这个名称。
+
+**如何获取 Token**：登录明道云 → 个人设置 → API 密钥 → 复制 `md_pss_id` 值。URL 中空格需编码为 `%20`。
 
 ### 3. 开始使用
 
