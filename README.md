@@ -11,14 +11,14 @@
 
 ## 安装与使用
 
-`skills/hap-app-builder/` 是自包含的 Skill，各 IDE 都有对应的安装工具：
+`skills/hap-app-builder/` 是自包含的 Skill。在你的 IDE 中安装本仓库的 skill，配置明道云 MCP 服务后即可使用。
 
-| IDE | 状态 | 安装说明 |
-|-----|------|---------|
-| Antigravity | ✅ 可用 | [安装指南](adapters/antigravity/README.md) |
-| OpenAI Codex | ✅ 可用 | [安装指南](adapters/codex/README.md) |
-| Claude Code | 📋 计划中 | [adapters/claude-code](adapters/claude-code/README.md) |
-| Cursor | 📋 计划中 | [adapters/cursor](adapters/cursor/README.md) |
+| IDE | 状态 |
+|-----|------|
+| Antigravity | ✅ |
+| OpenAI Codex | ✅ |
+| Claude Code | 📋 计划中 |
+| Cursor | 📋 计划中 |
 
 ## 前置依赖
 
