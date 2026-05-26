@@ -25,7 +25,7 @@ AI 必须首先尝试调用明道云 MCP 工具 `get_time` 来验证沙箱连通
   ```markdown
   🚨 **未检测到明道云沙箱 MCP 服务！**
   应用搭建需要连接到明道云沙箱环境的 MCP 服务。
-  **解决办法**：请配置连接到 `https://api3.mingdao.com/mcp` 的 MCP 服务（建议服务名称为 `mingdaoSandbox`），配置完成后重新运行。
+  **解决办法**：请配置连接到 `https://api3.mingdao.com/mcp` 的 MCP 服务（服务名称必须为 `mingdaoSandbox`），配置完成后重新运行。
   ```
 
 ### 2. 确定项目根目录（PROJECT_ROOT）
