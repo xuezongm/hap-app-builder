@@ -1,6 +1,7 @@
 # HAP App Builder
 
 明道云（HAP）应用智能构建器。通过 AI Agent 与明道云 MCP 服务，从业务需求描述到完整应用搭建的全自动流程。
+
 > 因部分接口只在sandbox环境有效，所以需要使用 api3.mingdao.com/mcp 服务，在沙盒中测试搭建
 
 ## 功能
@@ -12,14 +13,14 @@
 
 ## 前置依赖
 
-- 明道云sandbox环境 MCP 授权 Token
+- 明道云沙盒 MCP 个人授权
 - Python 3.9+（用于 `generate_fill_templates.py` 脚本）
 
 ## 安装
 
-### 1. 获取 MCP 授权 Token
+### 1. 获取 MCP 个人授权
 
-登录**sandbox.migndao.com**，F12打开控制台，从任意接口请求的 Response headers 中复制完整 md_pss_id ，并设置为环境变量：
+登录sandbox.migndao.com，打开个人账户>个人访问令牌，创建一个授权（选择所有范围），获得授权令牌 `pat_xxxxxxxx`
 
 ```bash
 export MINGDAO_AUTH="your-token-here"
@@ -100,10 +101,6 @@ cp -r hap-app-builder/skills/hap-app-builder ~/.codex/skills/hap-app-builder
 
 如果插件已正确加载，Agent 会自动读取 `SKILL.md` 并进入方案设计流程。
 
-> **⚠️ MCP 授权安全提示**
->
-> `.mcp.json` 通过 `${MINGDAO_AUTH}` 环境变量引用 Token，**不要将明文 Token 提交到仓库**。
-> 确保 `MINGDAO_AUTH` 已在本地 shell 环境中正确配置。
 
 ## 目录结构
 
