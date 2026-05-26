@@ -40,7 +40,6 @@ hap-app-builder/
 │   ├── scripts/generate_fill_templates.py
 │   └── steps/                         # 11 个搭建步骤
 ├── plugin.json                        # Antigravity 插件描述
-├── skills/hap-app-builder/            # Antigravity 兼容（symlink 到根）
 ├── README.md
 ├── LICENSE
 └── .gitignore
