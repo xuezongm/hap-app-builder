@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#1677FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+  <!-- crane arm -->
+  <line x1="6" y1="3" x2="6" y2="20"/>
+  <line x1="6" y1="3" x2="16" y2="3"/>
+  <line x1="16" y1="3" x2="16" y2="7"/>
+  <!-- hook -->
+  <path d="M16 7 L16 9 Q16 10 15 10 Q14 10 14 9"/>
+  <!-- blocks -->
+  <rect x="10" y="14" width="6" height="4" rx="0.5" fill="#1677FF" opacity="0.2"/>
+  <rect x="10" y="10" width="6" height="4" rx="0.5" fill="#1677FF" opacity="0.35"/>
+  <!-- base -->
+  <line x1="3" y1="20" x2="19" y2="20"/>
+</svg>

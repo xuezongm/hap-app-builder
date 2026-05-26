@@ -55,11 +55,37 @@ claude --plugin-dir ./hap-app-builder
 
 #### Codex
 
+**方式 A：Skill 安装（稳定）**
+
+将 skill 复制到 Codex 技能目录：
+
 ```bash
 git clone https://github.com/xuezongm/hap-app-builder.git
+cp -r hap-app-builder/skills/hap-app-builder ~/.codex/skills/hap-app-builder
 ```
 
-Codex 会自动识别 `.codex-plugin/plugin.json` 并加载插件。
+同时将 `.mcp.json` 中的 MCP 服务配置到 Codex 的 MCP 设置中。
+
+**方式 B：插件 / 市场安装**
+
+如果你维护了自己的 Codex marketplace，将插件目录放入 marketplace 的 `plugins/` 下，并在 `marketplace.json` 中添加条目：
+
+```json
+{
+  "name": "hap-app-builder",
+  "source": {
+    "source": "local",
+    "path": "./plugins/hap-app-builder"
+  },
+  "policy": {
+    "installation": "AVAILABLE",
+    "authentication": "ON_INSTALL"
+  },
+  "category": "Productivity"
+}
+```
+
+然后在 Codex TUI 中运行 `/plugins`，选择并安装 **hap-app-builder**。
 
 ---
 
@@ -73,6 +99,11 @@ Codex 会自动识别 `.codex-plugin/plugin.json` 并加载插件。
 
 如果插件已正确加载，Agent 会自动读取 `SKILL.md` 并进入方案设计流程。
 
+> **⚠️ MCP 授权安全提示**
+>
+> `.mcp.json` 通过 `${MINGDAO_AUTH}` 环境变量引用 Token，**不要将明文 Token 提交到仓库**。
+> 确保 `MINGDAO_AUTH` 已在本地 shell 环境中正确配置。
+
 ## 目录结构
 
 ```
@@ -81,6 +112,9 @@ hap-app-builder/
 ├── .claude-plugin/plugin.json         # Claude Code 插件描述
 ├── .codex-plugin/plugin.json          # Codex 插件描述
 ├── .mcp.json                          # MCP 服务配置（沙箱）
+├── assets/                            # 图标资源
+│   ├── app-icon.png                   # 应用图标
+│   └── hap-app-builder-small.svg      # Composer 小图标
 ├── skills/                            # Skill 容器
 │   └── hap-app-builder/               # HAP 应用构建 Skill
 │       ├── SKILL.md                   # 入口

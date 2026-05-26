@@ -26,8 +26,11 @@
     "category": "Productivity",
     "capabilities": [
       "Read",
-      "Write"
+      "Write",
+      "Interactive"
     ],
+    "logo": "./assets/app-icon.png",
+    "composerIcon": "./assets/hap-app-builder-small.svg",
     "websiteURL": "https://github.com/xuezongm/hap-app-builder",
     "defaultPrompt": [
       "使用 HAP App Builder 帮我设计并搭建一个图书借阅管理应用。",
