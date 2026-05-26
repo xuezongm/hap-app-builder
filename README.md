@@ -1,7 +1,7 @@
 # HAP App Builder
 
 明道云（HAP）应用智能构建器。通过 AI Agent 与明道云 MCP 服务，从业务需求描述到完整应用搭建的全自动流程。
-> 因部分接口只在sandbox环境有效，所以需要使用 api3.mingdao.com 的mcp服务，在沙盒中测试搭建
+> 因部分接口只在sandbox环境有效，所以需要使用 api3.mingdao.com/mcp 服务，在沙盒中测试搭建
 
 ## 功能
 
