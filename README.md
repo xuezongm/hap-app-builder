@@ -13,13 +13,6 @@
 
 `skills/hap-app-builder/` 是自包含的 Skill。在你的 IDE 中安装本仓库的 skill，配置明道云 MCP 服务后即可使用。
 
-| IDE | 状态 |
-|-----|------|
-| Antigravity | ✅ |
-| OpenAI Codex | ✅ |
-| Claude Code | 📋 计划中 |
-| Cursor | 📋 计划中 |
-
 ## 前置依赖
 
 - 明道云账号及 MCP 授权 Token
@@ -32,7 +25,7 @@
 hap-app-builder/
 ├── plugin.json                        # Antigravity 插件描述
 ├── skills/
-│   └── hap-app-builder/               # 自包含 Skill（Antigravity 直接加载）
+│   └── hap-app-builder/               # 自包含 Skill
 │       ├── SKILL.md                   # 根入口
 │       ├── plan/                      # 方案设计
 │       │   ├── SKILL.md
@@ -49,12 +42,6 @@ hap-app-builder/
 │           ├── resources/sample_images.json
 │           ├── scripts/generate_fill_templates.py
 │           └── steps/                 # 11 个搭建步骤
-│
-├── adapters/                          # 其他 IDE 适配层（计划中）
-│   ├── claude-code/
-│   ├── codex/
-│   └── cursor/
-│
 ├── README.md
 ├── LICENSE
 └── .gitignore
