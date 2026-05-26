@@ -33,17 +33,10 @@ git clone https://github.com/xuezongm/hap-app-builder.git .claude/hap-app-builde
 
 ### Codex CLI
 
-将 `skills/` 目录复制到 Codex skills 路径（通常为 `~/.codex/skills`）：
+将本仓库作为 Plugin 安装。Codex 会通过 `.codex-plugin/plugin.json` 自动发现 skills 和 MCP 配置：
 
 ```bash
-cp -r skills/hap-app-builder ~/.codex/skills/hap-app-builder
-```
-
-或使用 skill-installer：
-
-```bash
-python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
-  --repo xuezongm/hap-app-builder --path skills/hap-app-builder
+git clone https://github.com/xuezongm/hap-app-builder.git ~/.codex/plugins/hap-app-builder
 ```
 
 ### 通用
