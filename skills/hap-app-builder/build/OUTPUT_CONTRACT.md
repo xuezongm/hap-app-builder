@@ -41,4 +41,5 @@ else:
 | 7 | `pages_created` | `customPageIdByName`, `chatbotIdByName`（若有） |
 | 8 | `roles_created` | `roleContext` |
 | 9 | `workflows_designed` | _(工作流设计写入 hap-plan.json)_ |
-| 10 | `completed` | `customActionWorkflows` |
+| 10 | `system_workflows_published` | _(系统工作流 processId 已 publish)_ |
+| 11 | `completed` | `customActionWorkflows` |
