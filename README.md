@@ -11,90 +11,19 @@
 
 ## 安装与使用
 
-`skills/hap-app-builder/` 是自包含的 Skill，各 IDE 的安装方式不同：
+`skills/hap-app-builder/` 是自包含的 Skill，各 IDE 都有对应的安装工具：
 
-| IDE | 状态 | 安装方式 |
+| IDE | 状态 | 安装说明 |
 |-----|------|---------|
-| Antigravity | ✅ 可用 | 直接 clone 到插件目录 |
-| Claude Code | 📋 适配层开发中 | clone 仓库 → 配置 skill 引用 + MCP |
-| OpenAI Codex | ✅ 可用 | skill-installer 从 GitHub 安装 |
-| Cursor | 📋 适配层开发中 | clone 仓库 → 配置 MCP |
-
----
-
-### Antigravity IDE ✅
-
-```bash
-git clone https://github.com/xuezongm/hap-app-builder.git \
-  ~/.gemini/config/plugins/hap-app-builder-plugin
-```
-
-配置 MCP：添加名为 `mingdaoSandbox` 的服务，连接 `https://api3.mingdao.com/mcp`。
-
-使用：在对话中输入「帮我搭建一个客户管理应用」。
-
----
-
-### Claude Code 📋
-
-> 适配层开发中，以下为预计步骤。
-
-```bash
-# 1. clone 仓库
-git clone https://github.com/xuezongm/hap-app-builder.git ~/hap-app-builder
-
-# 2. 配置 MCP（项目级）
-cd your-project
-claude mcp add mingdaoSandbox https://api3.mingdao.com/mcp
-
-# 3. 将 skill 引用到项目（适配层完成后）
-# 参考 adapters/claude-code/README.md
-```
-
----
-
-### OpenAI Codex ✅
-
-```bash
-# 1. 在 Codex 中安装 skill
-python3 ~/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py \
-  --repo xuezongm/hap-app-builder \
-  --path skills/hap-app-builder
-
-# 2. 配置 MCP（在 ~/.codex/config.toml 中添加）
-# [mcp_servers.mingdaoSandbox]
-# url = "https://api3.mingdao.com/mcp"
-# bearer_token_env_var = "HAP-Appkey=<key>&HAP-Sign=<sign>"
-# enabled = true
-
-# 3. 重启 Codex，然后输入「帮我搭建一个客户管理应用」
-```
-
-详见 [adapters/codex/README.md](adapters/codex/README.md)。
-
----
-
-### Cursor 📋
-
-> 适配层开发中，以下为预计步骤。
-
-```bash
-# 1. clone 仓库
-git clone https://github.com/xuezongm/hap-app-builder.git ~/hap-app-builder
-
-# 2. 配置 MCP
-# 在 Cursor Settings → MCP 中添加 mingdaoSandbox 服务
-
-# 3. 引用 skill 文件（适配层完成后）
-# 参考 adapters/cursor/README.md
-```
-
-> **所有 IDE 共用前提**：需要明道云账号及 MCP 授权 Token，MCP 服务名称必须为 `mingdaoSandbox`。
+| Antigravity | ✅ 可用 | [安装指南](adapters/antigravity/README.md) |
+| OpenAI Codex | ✅ 可用 | [安装指南](adapters/codex/README.md) |
+| Claude Code | 📋 计划中 | [adapters/claude-code](adapters/claude-code/README.md) |
+| Cursor | 📋 计划中 | [adapters/cursor](adapters/cursor/README.md) |
 
 ## 前置依赖
 
 - 明道云账号及 MCP 授权 Token
-- MCP 服务名称必须为 `mingdaoSandbox`，连接地址为 `https://api3.mingdao.com/mcp`
+- MCP 服务连接到沙箱环境 `https://api3.mingdao.com/mcp`（建议服务名称为 `mingdaoSandbox`）
 - Python 3.9+（用于 `generate_fill_templates.py` 脚本）
 
 ## 目录结构
