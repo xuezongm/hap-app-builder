@@ -9,45 +9,69 @@
 - **断点恢复**：搭建过程中断后可从上次进度继续
 - **示例数据**：自动生成贴近真实场景的示例数据
 
-## 安装
-
-### Antigravity
-
-将本仓库克隆（或符号链接）到插件目录：
-
-```bash
-git clone https://github.com/xuezongm/hap-app-builder.git ~/.gemini/config/plugins/hap-app-builder
-```
-
-Antigravity 会自动发现 `plugin.json` 和 `skills/hap-app-builder/SKILL.md`。重启后即可使用。
-
-### Claude Code
-
-将本仓库克隆到项目根目录的 `/.claude` 文件夹：
-
-```bash
-git clone https://github.com/xuezongm/hap-app-builder.git .claude/hap-app-builder
-```
-
-`.mcp.json` 会自动注册 MCP 服务。详见 [Claude Skills 文档](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/skills)。
-
-### Codex CLI
-
-将本仓库作为 Plugin 安装。Codex 会通过 `.codex-plugin/plugin.json` 自动发现 skills 和 MCP 配置：
-
-```bash
-git clone https://github.com/xuezongm/hap-app-builder.git ~/.codex/plugins/hap-app-builder
-```
-
-### 通用
-
-任何支持 [Agent Skills 规范](https://agentskills.io/specification) 的工具都可以直接使用 `skills/hap-app-builder/` 目录。
-
 ## 前置依赖
 
-- 明道云账号及 MCP 授权 Token
-- MCP 服务连接到沙箱环境 `https://api3.mingdao.com/mcp`（建议服务名称为 `mingdaoSandbox`）
+- 明道云账号 MCP 授权 Token
 - Python 3.9+（用于 `generate_fill_templates.py` 脚本）
+
+## 安装
+
+### 1. 获取 MCP 授权 Token
+
+登录sandbox.migndao.com，打开F12，从任意接口请求的 Response headers 中复制完整 md_pss_id ，并设置为环境变量：
+
+```bash
+export MINGDAO_AUTH="your-token-here"
+```
+
+建议将此行添加到 `~/.zshrc` 或 `~/.bashrc` 中持久化。
+
+---
+
+### 2. 安装插件
+
+#### Antigravity
+
+将本仓库克隆到本地，Antigravity 会自动识别根目录的 `plugin.json` 和 `.mcp.json`：
+
+```bash
+git clone https://github.com/xuezongm/hap-app-builder.git
+```
+
+在 Antigravity 中打开项目目录即可使用。
+
+#### Claude Code
+
+```text
+/install-plugin https://github.com/xuezongm/hap-app-builder
+```
+
+或手动克隆后使用 `--plugin-dir` 加载：
+
+```bash
+git clone https://github.com/xuezongm/hap-app-builder.git
+claude --plugin-dir ./hap-app-builder
+```
+
+#### Codex
+
+```bash
+git clone https://github.com/xuezongm/hap-app-builder.git
+```
+
+Codex 会自动识别 `.codex-plugin/plugin.json` 并加载插件。
+
+---
+
+### 3. 验证安装
+
+安装完成后，在对话中输入以下内容验证插件是否正常工作：
+
+```text
+使用 HAP App Builder 帮我设计并搭建一个图书借阅管理应用。
+```
+
+如果插件已正确加载，Agent 会自动读取 `SKILL.md` 并进入方案设计流程。
 
 ## 目录结构
 
