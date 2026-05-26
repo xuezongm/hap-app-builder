@@ -24,24 +24,26 @@
 ```
 hap-app-builder/
 ├── plugin.json                        # Antigravity 插件描述
-├── skills/
-│   └── hap-app-builder/               # Agent Skill（自包含）
-│       ├── SKILL.md                   # 入口
-│       ├── plan/                      # 方案设计
-│       │   ├── SKILL.md
-│       │   ├── design_guide.md
-│       │   ├── 1a_plan_overview.md
-│       │   ├── 1b_plan_schema.md
-│       │   ├── icon_and_style_guide.md
-│       │   └── scripts/scan_apps.cjs
-│       └── build/                     # 物理搭建
-│           ├── SKILL.md
-│           ├── CONTEXT.md
-│           ├── PROGRESS.md
-│           ├── OUTPUT_CONTRACT.md
-│           ├── resources/sample_images.json
-│           ├── scripts/generate_fill_templates.py
-│           └── steps/                 # 11 个搭建步骤
+├── .claude-plugin/plugin.json         # Claude Code 插件描述
+├── .codex-plugin/plugin.json          # Codex 插件描述
+├── .mcp.json                          # MCP 服务配置（沙箱）
+├── skills/                            # Agent Skill（自包含）
+│   ├── SKILL.md                       # 入口
+│   ├── plan/                          # 方案设计
+│   │   ├── SKILL.md
+│   │   ├── design_guide.md
+│   │   ├── 1a_plan_overview.md
+│   │   ├── 1b_plan_schema.md
+│   │   ├── icon_and_style_guide.md
+│   │   └── scripts/scan_apps.cjs
+│   └── build/                         # 物理搭建
+│       ├── SKILL.md
+│       ├── CONTEXT.md
+│       ├── PROGRESS.md
+│       ├── OUTPUT_CONTRACT.md
+│       ├── resources/sample_images.json
+│       ├── scripts/generate_fill_templates.py
+│       └── steps/                     # 11 个搭建步骤
 ├── README.md
 ├── LICENSE
 └── .gitignore

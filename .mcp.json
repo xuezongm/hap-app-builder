@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "mingdaoSandbox": {
+      "type": "streamable-http",
+      "url": "https://api3.mingdao.com/mcp"
+    }
+  }
+}
