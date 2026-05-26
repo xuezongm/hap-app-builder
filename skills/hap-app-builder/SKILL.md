@@ -13,11 +13,6 @@ description: 全自动一站式 HAP 应用构建器。从业务方案设计（Pl
   
   > 因部分接口仅沙箱可用，暂时仅支持 `api3.mingdao.com/mcp` 进行应用搭建。
   > **严禁调用连接到其他环境（如 `api2.mingdao.com`）的 MCP 服务**，以防止脏数据。
-  >
-  > **各 IDE 配置方式**：
-  > - **Antigravity**：在 MCP 配置中添加名为 `mingdaoSandbox` 的服务
-  > - **Codex**：在 `~/.codex/config.toml` 中添加 `[mcp_servers.mingdaoSandbox]`
-  > - **Claude Code**：运行 `claude mcp add mingdaoSandbox https://api3.mingdao.com/mcp`
 
 ## 前置检查
 
