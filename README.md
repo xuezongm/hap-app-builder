@@ -22,6 +22,8 @@
 
 ## 安装
 
+### 通用方式（适用于所有 AI 工具）
+
 **在 AI 工具（Antigravity / Claude Code / Codex 等）的对话中输入**：
 
 ```text
@@ -30,15 +32,25 @@
 
 AI 会自动克隆仓库，识别 `plugin.json` 和 `.mcp.json` 完成安装与 MCP 配置。
 
+### Claude Code 原生安装（推荐）
+
+Claude Code 支持通过内置插件命令直接安装：
+
+```bash
+claude plugin install https://github.com/xuezongm/hap-app-builder
+```
+
+安装后插件中的 `skills/` 和 `.mcp.json` 会被自动发现和加载。
+
 > [!IMPORTANT]
 > 安装必须同时完成 **Skill/Plugin 安装** 和 **MCP 服务配置**，缺一不可。仅安装 skill 而未配置 MCP 服务，搭建将无法执行。
 
-#### 各平台安装与 MCP 配置
+#### 各平台安装路径与 MCP 配置
 
-| 平台 | Skill 安装路径 | MCP 配置写入位置 |
-|------|---------------|-----------------|
+| 平台 | 安装路径 | MCP 配置写入位置 |
+|------|---------|-----------------|
 | Antigravity | `~/.gemini/config/plugins/hap-app-builder/` | `~/.gemini/config/mcp_config.json` |
-| Claude Code | `~/.claude/plugins/hap-app-builder/` | `~/.claude/config.json` 或项目 `.mcp.json` |
+| Claude Code | `~/.claude/plugins/hap-app-builder/` | 自动加载插件内 `.mcp.json`，或写入 `~/.claude.json` |
 | Codex | `~/.codex/skills/hap-app-builder/` | `~/.codex/config.toml` |
 
 ### MCP 授权

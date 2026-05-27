@@ -1,9 +1,14 @@
 {
-  "name": "hap-app-builder-plugin",
+  "name": "hap-app-builder",
+  "displayName": "HAP 应用构建器",
   "version": "1.0.0",
-  "description": "明道云 HAP 应用智能构建器插件",
+  "description": "明道云 HAP 应用智能构建器。从业务需求到完整应用搭建的全自动流程。需要连接到明道云沙箱 MCP 服务 (api3.mingdao.com/mcp)。",
   "author": {
-    "name": "User"
+    "name": "xuezongm",
+    "url": "https://github.com/xuezongm"
   },
-  "license": "MIT"
+  "repository": "https://github.com/xuezongm/hap-app-builder",
+  "license": "MIT",
+  "keywords": ["mingdao", "hap", "low-code", "app-builder"],
+  "skills": "./skills/"
 }
