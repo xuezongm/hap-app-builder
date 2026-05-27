@@ -32,15 +32,20 @@
 
 AI 会自动克隆仓库，识别 `plugin.json` 和 `.mcp.json` 完成安装与 MCP 配置。
 
-### Claude Code 原生安装（推荐）
+### Claude Code 安装
 
-Claude Code 支持通过内置插件命令直接安装：
+Claude Code 需要先克隆仓库到本地，再以插件方式加载：
 
 ```bash
-claude plugin install https://github.com/xuezongm/hap-app-builder
-```
+# 1. 克隆仓库
+git clone https://github.com/xuezongm/hap-app-builder.git
 
-安装后插件中的 `skills/` 和 `.mcp.json` 会被自动发现和加载。
+# 2. 启动 Claude Code 时加载插件（临时，适合测试）
+claude --plugin-dir ./hap-app-builder
+
+# 或：克隆到全局 skills 目录（持久生效）
+git clone https://github.com/xuezongm/hap-app-builder.git ~/.claude/skills/hap-app-builder
+```
 
 > [!IMPORTANT]
 > 安装必须同时完成 **Skill/Plugin 安装** 和 **MCP 服务配置**，缺一不可。仅安装 skill 而未配置 MCP 服务，搭建将无法执行。
@@ -50,7 +55,7 @@ claude plugin install https://github.com/xuezongm/hap-app-builder
 | 平台 | 安装路径 | MCP 配置写入位置 |
 |------|---------|-----------------|
 | Antigravity | `~/.gemini/config/plugins/hap-app-builder/` | `~/.gemini/config/mcp_config.json` |
-| Claude Code | `~/.claude/plugins/hap-app-builder/` | 自动加载插件内 `.mcp.json`，或写入 `~/.claude.json` |
+| Claude Code | `~/.claude/skills/hap-app-builder/` 或 `--plugin-dir` 指定 | 需手动配置 `~/.claude.json` |
 | Codex | `~/.codex/skills/hap-app-builder/` | `~/.codex/config.toml` |
 
 ### MCP 授权
