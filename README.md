@@ -28,7 +28,7 @@
 安装这个项目 https://github.com/xuezongm/hap-app-builder ，同时配置好 MCP 服务
 ```
 
-AI 会自动克隆仓库，识别 `plugin.json` 和 `.mcp.json` 完成安装与 MCP 配置。
+AI 会自动克隆仓库，识别 `plugin.json` 和 `.mcp.json` 完成skill安装与，并索要`md_pss_id`用于MCP配置。
 
 > [!IMPORTANT]
 > 安装必须同时完成 **Skill 安装** 和 **MCP 服务配置**，缺一不可。仅安装 skill 而未配置 MCP 服务，搭建将无法执行。
