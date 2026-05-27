@@ -16,7 +16,7 @@
 2. 每张表调用 `create_worksheet`，传入对应的 `sectionId`
 3. 固定设置 `createDefaultView: false`（默认视图在后续步骤单独创建）
 4. 记录返回的 `worksheetId`，存入 `worksheetIdByName[表名]`
-5. 更新 `hap-context.json`：`progress="worksheets_created"`，写入 `worksheetIdByName`
+5. 更新 `hap-context.json`：写入 `worksheetIdByName`（不写 `progress`，由调度器统一管理）
 
 **⛔ 验证断言**：`worksheetIdByName` 条目数 = plan 中工作表数量，每个值均为 24 位物理 ID。
 

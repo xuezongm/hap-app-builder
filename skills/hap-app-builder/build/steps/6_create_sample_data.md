@@ -21,7 +21,7 @@
 2. **内存级联绑定与拉取兜底结合**：
    - *优先内存绑定*：在同一次物理执行中，上游表调用 `batch_create_records` 返回的物理 `rowId` 应在内存中当场捕获并缓存，在创建下游表时直接映射填入 Relation 字段，避免频繁调用对端接口。
    - *物理拉取兜底*：在跨会话断点恢复、自愈或缺失数据时，应物理调用 `get_record_list` 工具拉取目标关联表的真实记录 ID 进行绑定。
-3. 更新 `hap-context.json`：`progress="sample_data_created"`
+3. 不写 `progress`（由调度器统一管理）
 
 **⛔ 验证断言**：至少对 plan 中的每张工作表调用过 `batch_create_records` 且返回成功。
 

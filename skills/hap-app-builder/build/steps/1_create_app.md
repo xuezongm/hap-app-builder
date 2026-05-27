@@ -27,6 +27,6 @@
      
      ---
      ```
-4. 更新 `hap-context.json`：`progress="app_created"`，写入 `appId`、`sectionIdByName`
+4. 更新 `hap-context.json`：写入 `appId`、`sectionIdByName`（不写 `progress`，由调度器统一管理）
 
 **⛔ 验证断言**：`appId` 非空，`sectionIdByName` 条目数等于 plan 中分组数量。

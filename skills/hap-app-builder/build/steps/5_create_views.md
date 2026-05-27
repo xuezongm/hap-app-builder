@@ -16,7 +16,7 @@
 3. 只使用 `worksheetContext` 中提供的字段，不猜测
 4. 视图中引用 `actionId` 时，从 `actionIdByName` 查找
 5. 记录 `viewIdByName`（格式：`"工作表名/视图名" → viewId`）
-6. 更新 `hap-context.json`：`progress="views_created"`，写入 `viewIdByName`
+6. 更新 `hap-context.json`：写入 `viewIdByName`（不写 `progress`，由调度器统一管理）
 
 **⛔ 验证断言**：`viewIdByName` 条目数 = plan 中全部视图总数。
 

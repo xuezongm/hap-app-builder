@@ -49,7 +49,7 @@
 
 ## 完成
 
-更新 `hap-context.json`：`progress="system_workflows_published"`
+不写 `progress`（由调度器统一管理）。
 
 **⛔ 验证断言**：plan 中所有系统级工作流均已获得 `processId`，且调用 `publish_process` 返回成功。
 

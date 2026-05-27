@@ -18,7 +18,7 @@
    }
    ```
 3. 将 `worksheetContext` 写入独立文件 `{PROJECT_ROOT}/apps/{appName}/worksheetContext.json`（**不写入 `hap-context.json`**，避免上下文膨胀）
-4. 更新 `hap-context.json`：仅写入 `progress="fields_refreshed"`
+4. 更新 `hap-context.json`：不写 `progress`（由调度器统一管理）
 
 **⛔ 验证断言**：`worksheetContext.json` 文件存在且非空，条目数 = 已创建工作表数，每表的 `fields` 数组非空。
 

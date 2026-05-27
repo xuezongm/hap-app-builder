@@ -18,7 +18,7 @@
 2. 引用 `viewIdByName` 配置视图访问权限
 3. 引用 `customPageIdByName` 配置页面可见权限
 4. 记录 `roleContext`（`[{ id, name }]`）
-5. 更新 `hap-context.json`：`progress="roles_created"`，写入 `roleContext`
+5. 更新 `hap-context.json`：写入 `roleContext`（不写 `progress`，由调度器统一管理）
 
 **⛔ 验证断言**：`roleContext` 条目数 = plan 中角色数量，每个角色的 `id` 非空。
 

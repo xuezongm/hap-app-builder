@@ -38,7 +38,7 @@
 
 ### 完成
 
-更新 `hap-context.json`：`progress="pages_created"`，写入 `customPageIdByName` 和 `chatbotIdByName`（若有）。
+更新 `hap-context.json`：写入 `customPageIdByName` 和 `chatbotIdByName`（若有）。不写 `progress`（由调度器统一管理）。
 
 ---
 

@@ -15,7 +15,7 @@
 1. 调用 `create_custom_actions` 批量创建该表的所有动作
 2. 记录返回的 `actionIdByName`（格式：`"工作表名/动作名" → actionId`）
 3. **关键**：`type=triggerWorkflow` 的动作，系统会自动创建工作流外壳并返回 `processId`——必须记录到 `customActionWorkflows[]`
-4. 更新 `hap-context.json`：`progress="actions_created"`，写入 `actionIdByName`、`customActionWorkflows`
+4. 更新 `hap-context.json`：写入 `actionIdByName`、`customActionWorkflows`（不写 `progress`，由调度器统一管理）
 
 **⛔ 验证断言**：`actionIdByName` 条目数 = plan 中全部自定义动作总数。`customActionWorkflows[]` 条目数 = plan 中 `type=triggerWorkflow` 的动作数。
 

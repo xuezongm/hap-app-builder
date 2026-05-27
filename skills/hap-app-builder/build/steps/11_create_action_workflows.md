@@ -52,7 +52,7 @@
 
 ## 完成
 
-更新 `hap-context.json`：`progress="completed"`
+不写 `progress`（由调度器统一管理）。
 
 **⛔ 验证断言**：
 - `customActionWorkflows[]` 中每个 processId 均已调用 `batch_create_process_nodes` 且返回成功
