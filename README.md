@@ -22,7 +22,7 @@
 
 ## 安装
 
-在 AI 工具（Antigravity / Claude Code / Codex 等）的对话中输入：
+**在 AI 工具（Antigravity / Claude Code / Codex 等）的对话中输入**：
 
 ```text
 安装这个项目 https://github.com/xuezongm/hap-app-builder ，同时配置好 MCP 服务
