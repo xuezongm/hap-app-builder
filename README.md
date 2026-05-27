@@ -33,6 +33,14 @@ AI 会自动克隆仓库，识别 `plugin.json` 和 `.mcp.json` 完成安装与 
 > [!IMPORTANT]
 > 安装必须同时完成 **Skill/Plugin 安装** 和 **MCP 服务配置**，缺一不可。仅安装 skill 而未配置 MCP 服务，搭建将无法执行。
 
+#### 各平台安装路径
+
+| 平台 | 安装方式 | 安装路径 |
+|------|---------|---------|
+| Antigravity | 克隆到本地，打开项目目录 | 项目目录即插件目录 |
+| Claude Code | `/install-plugin <git-url>` 或 `--plugin-dir` | `~/.claude/plugins/hap-app-builder/` |
+| Codex | 克隆后复制 skill 目录 | `~/.codex/skills/hap-app-builder/` |
+
 ### MCP 授权
 
 > 因个人授权不稳定，暂时仍使用 md_pss_id 鉴权

@@ -1,21 +1,11 @@
 {
   "name": "hap-app-builder",
   "version": "1.0.0",
-  "description": "明道云 HAP 应用智能构建器。从业务需求描述到完整应用搭建的自动化流程，需要连接明道云沙箱 MCP 服务。",
+  "description": "明道云 HAP 应用智能构建器。从业务需求描述到完整应用搭建的全自动流程。需要连接到明道云沙箱 MCP 服务 (api3.mingdao.com/mcp)。",
   "author": {
     "name": "xuezongm",
     "url": "https://github.com/xuezongm"
   },
-  "homepage": "https://github.com/xuezongm/hap-app-builder",
-  "repository": "https://github.com/xuezongm/hap-app-builder",
   "license": "MIT",
-  "keywords": [
-    "hap",
-    "mingdao",
-    "low-code",
-    "mcp",
-    "agent-skills"
-  ],
-  "skills": "./skills/",
-  "mcpServers": "./.mcp.json"
+  "skills": "./skills/"
 }
