@@ -17,6 +17,7 @@
 ### 阶段 A：创建自定义页面
 
 1. 对每个自定义页面，先调用 `create_app_items` 创建空白自定义页面项（挂在指定导航分组下），获得页面 ID
+   - `icon`：根据 `pageType` 设定——`dashboard` 传 `"sys_control-panel_traffic"`，`workspace` 传 `"2_3_statistics"`
 2. 再调用 `save_custom_page` 配置其组件
 3. 记录 `customPageIdByName`
 
