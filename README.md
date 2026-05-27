@@ -38,7 +38,7 @@ AI 会自动克隆仓库，将 `skills/` 目录复制到对应平台的技能目
 | 平台 | Skill 安装路径 | MCP 配置写入位置 |
 |------|---------------|-----------------|
 | Antigravity | `~/.gemini/config/plugins/hap-app-builder/` | `~/.gemini/config/mcp_config.json` |
-| Claude Code | `~/.claude/skills/hap-app-builder/` | `~/.claude.json` |
+| Claude Code | `~/.claude/skills/hap-app-builder/` | `~/.mcp.json` |
 | Codex | `~/.codex/skills/hap-app-builder/` | `~/.codex/config.toml` |
 
 ### MCP 授权
