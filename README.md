@@ -45,12 +45,12 @@ AI 会自动克隆仓库，识别 `plugin.json` 和 `.mcp.json` 完成安装与 
 
 > 因个人授权不稳定，暂时仍使用 md_pss_id 鉴权
 
-获取方式：登录 sandbox.mingdao.com，使用浏览器开发者工具（F12→Network），随便刷新页面，点开任意请求，从 Request Headers 中获取 `md_pss_id` 值。
+获取方式：登录 sandbox.mingdao.com，使用浏览器开发者工具（F12→Network），随便刷新页面，点开任意请求，从 Request Headers 中获取 `md_pss_id`。
 
-获取到 `md_pss_id` 后，**直接写入对应平台的 MCP 配置文件**，完整 URL 格式为：
+获取到 `md_pss_id` 后，**直接写入对应平台的 MCP 配置文件**。`md_pss_id` 原始格式为 `md_pss_id {token}`（中间有空格），写入 URL 时空格需转为 `%20`：
 
 ```
-https://api3.mingdao.com/mcp?Authorization=md_pss_id%20{你的md_pss_id值}
+https://api3.mingdao.com/mcp?Authorization=md_pss_id%20{token}
 ```
 
 ### 验证
