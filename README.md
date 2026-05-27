@@ -33,22 +33,24 @@ AI 会自动克隆仓库，识别 `plugin.json` 和 `.mcp.json` 完成安装与 
 > [!IMPORTANT]
 > 安装必须同时完成 **Skill/Plugin 安装** 和 **MCP 服务配置**，缺一不可。仅安装 skill 而未配置 MCP 服务，搭建将无法执行。
 
-#### 各平台安装路径
+#### 各平台安装与 MCP 配置
 
-| 平台 | 安装方式 | 安装路径 |
-|------|---------|---------|
-| Antigravity | 克隆到插件目录 | `~/.gemini/config/plugins/hap-app-builder/` |
-| Claude Code | `/install-plugin <git-url>` 或 `--plugin-dir` | `~/.claude/plugins/hap-app-builder/` |
-| Codex | 克隆后复制 skill 目录 | `~/.codex/skills/hap-app-builder/` |
+| 平台 | Skill 安装路径 | MCP 配置写入位置 |
+|------|---------------|-----------------|
+| Antigravity | `~/.gemini/config/plugins/hap-app-builder/` | `~/.gemini/config/mcp_config.json` |
+| Claude Code | `~/.claude/plugins/hap-app-builder/` | `~/.claude/config.json` 或项目 `.mcp.json` |
+| Codex | `~/.codex/skills/hap-app-builder/` | `~/.codex/config.toml` |
 
 ### MCP 授权
 
 > 因个人授权不稳定，暂时仍使用 md_pss_id 鉴权
 
-获取方式：登录sandbox.mingdao.com，使用浏览器开发者工具（F12→Network），随便刷新页面，点开任意请求，从 Request Headers 中获取 `md_pss_id` 值。
+获取方式：登录 sandbox.mingdao.com，使用浏览器开发者工具（F12→Network），随便刷新页面，点开任意请求，从 Request Headers 中获取 `md_pss_id` 值。
 
-```bash
-export MINGDAO_AUTH="你的md_pss_id值"
+获取到 `md_pss_id` 后，**直接写入对应平台的 MCP 配置文件**，完整 URL 格式为：
+
+```
+https://api3.mingdao.com/mcp?Authorization=md_pss_id%20{你的md_pss_id值}
 ```
 
 ### 验证
