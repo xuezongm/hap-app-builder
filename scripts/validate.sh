@@ -48,14 +48,7 @@ if [ -f "$ROOT/.mcp.json" ]; then
   fi
 fi
 
-# 5. 图标资源存在
-[ -f "$ROOT/assets/app-icon.png" ]
-check $? "assets/app-icon.png 存在"
-
-[ -f "$ROOT/assets/hap-app-builder-small.svg" ]
-check $? "assets/hap-app-builder-small.svg 存在"
-
-# 6. README 包含安装说明关键词
+# 5. README 包含安装说明关键词
 grep -q "MINGDAO_AUTH" "$ROOT/README.md" 2>/dev/null
 check $? "README 包含 MINGDAO_AUTH 配置说明"
 

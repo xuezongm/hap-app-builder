@@ -73,9 +73,6 @@ hap-app-builder/
 ├── .claude-plugin/plugin.json         # Claude Code 插件描述
 ├── .codex-plugin/plugin.json          # Codex 插件描述
 ├── .mcp.json                          # MCP 服务配置（沙箱）
-├── assets/                            # 图标资源
-│   ├── app-icon.png                   # 应用图标
-│   └── hap-app-builder-small.svg      # Composer 小图标
 ├── skills/                            # Skill 容器
 │   └── hap-app-builder/               # HAP 应用构建 Skill
 │       ├── SKILL.md                   # 入口
