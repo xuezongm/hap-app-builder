@@ -27,10 +27,10 @@ description: HAP 应用方案设计。根据用户业务需求生成完整的方
 
 ### Step 1b：生成方案 JSON 与总览归档
 
-1. 创建 `{PROJECT_ROOT}/apps/{appName}` 文件夹（如果不存在），将已确认的方案总览（Markdown 格式）写入到 `{PROJECT_ROOT}/apps/{appName}/overview.md` 中
-2. 读取 `plan/1b_plan_schema.md`（JSON 结构规范）
-3. 读取 `plan/design_guide.md`（平台设计指南）
-4. 读取 `plan/icon_and_style_guide.md`（视觉主题与图标规范），为应用挑选配色和图标，为各工作表挑选图标
+1. 读取 `plan/1b_plan_schema.md`（JSON 结构规范）
+2. 再次读取 `plan/design_guide.md`（平台设计指南）
+3. 读取 `plan/icon_and_style_guide.md`（视觉主题与图标规范），为应用挑选配色和图标，为各工作表挑选图标
+4. 创建 `{PROJECT_ROOT}/apps/{appName}` 文件夹（如果不存在），将已确认的方案总览（Markdown 格式）写入到 `{PROJECT_ROOT}/apps/{appName}/overview.md` 中
 5. 按规范将已确认的总览转化为结构化 HapPlan JSON，并带上 `appIcon`、`appColor` 和每张工作表的 `icon`
 6. 将 HapPlan JSON 写入 `{PROJECT_ROOT}/apps/{appName}/hap-plan.json` 文件
 7. 告知用户方案及总览已保存，随即**自动读取 `build/SKILL.md` 并按其步骤开始搭建**，无需用户手动触发
