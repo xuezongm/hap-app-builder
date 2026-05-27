@@ -27,7 +27,7 @@
 
 ## 完成标志
 
-将**所有工作流**（系统工作流 + 自定义动作工作流）的节点方案统一写回 `hap-plan.json` 中对应的 `workflows[].nodes` 字段。不写 `progress`（由调度器统一管理）。
+将**所有工作流**的节点方案写回 `hap-plan.json`：系统工作流写入 `workflows[].nodes`，自定义动作工作流写入 `customActionWorkflows[].nodes`。不写 `progress`（由调度器统一管理）。
 
 **⛔ 验证断言**：
 - `hap-plan.json` 中**每条系统工作流**的 `nodes` 数组非空，且节点数 >= 1

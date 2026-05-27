@@ -21,6 +21,7 @@
 - `viewIdByName`：视图名称 → ID 映射（来自 `hap-context.json`）
 - `roleContext`：角色列表，含 `id` 和 `name`（来自 `hap-context.json`）
 - `customActionWorkflows`：自定义动作触发的工作流列表（来自 `hap-context.json`），每条包含 `processId`、`worksheetName`、`intentHints`
+- `customActionWorkflowDesign`：来自 `hap-plan.json` 的 `customActionWorkflows[]`，其中每条工作流的 `nodes` 字段包含由设计师输出的完整节点方案
 
 ## 执行流程
 
