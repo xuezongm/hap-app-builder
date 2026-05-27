@@ -23,90 +23,34 @@
 ## 安装
 
 > [!IMPORTANT]
-> 安装必须同时完成以下两步，缺一不可：
-> 1. **配置 MCP 服务**：本项目依赖明道云 MCP 服务（`.mcp.json`），必须将 MCP 服务配置到 AI 工具中，否则无法调用任何明道云接口。
-> 2. **安装 Skill/Plugin**：将本项目的 skill 安装到对应的 AI 工具中。
->
-> 仅安装 skill 而未配置 MCP 服务，搭建将无法执行。
+> 安装必须同时完成 **Skill/Plugin 安装** 和 **MCP 服务配置**，缺一不可。仅安装 skill 而未配置 MCP 服务，搭建将无法执行。
 
-### 1. 获取 MCP 个人授权
+项目地址：
+
+```
+https://github.com/xuezongm/hap-app-builder
+```
+
+将项目安装到你使用的 AI 工具中（Antigravity / Claude Code / Codex 等），AI 会自动识别 `plugin.json` 和 `.mcp.json` 完成配置。
+
+### MCP 授权
 
 > 因个人授权不稳定，暂时仍使用 md_pss_id 鉴权
 
-获取方式：登录sandbox.mingdao.com，使用浏览器开发者工具（F12->Network），随便刷新页面，点开任意请求，从Request headers中获取 `md_pss_id` 值。
+获取方式：登录sandbox.mingdao.com，使用浏览器开发者工具（F12→Network），随便刷新页面，点开任意请求，从 Request Headers 中获取 `md_pss_id` 值。
 
 ```bash
 export MINGDAO_AUTH="你的md_pss_id值"
 ```
 
-### 2. 安装插件
+### 验证
 
-#### Antigravity
-
-将本仓库克隆到本地，Antigravity 会自动识别根目录的 `plugin.json` 和 `.mcp.json`：
-
-```bash
-git clone https://github.com/xuezongm/hap-app-builder.git
-```
-
-在 Antigravity 中打开项目目录即可使用。
-
-#### Claude Code
-
-```text
-/install-plugin https://github.com/xuezongm/hap-app-builder
-```
-
-或手动克隆后使用 `--plugin-dir` 加载：
-
-```bash
-git clone https://github.com/xuezongm/hap-app-builder.git
-claude --plugin-dir ./hap-app-builder
-```
-
-#### Codex
-
-**方式 A：Skill 安装（稳定）**
-
-将 skill 复制到 Codex 技能目录：
-
-```bash
-git clone https://github.com/xuezongm/hap-app-builder.git
-cp -r hap-app-builder/skills/hap-app-builder ~/.codex/skills/hap-app-builder
-```
-
-同时将 `.mcp.json` 中的 MCP 服务配置到 Codex 的 MCP 设置中。
-
-**方式 B：插件 / 市场安装**
-
-如果你维护了自己的 Codex marketplace，将插件目录放入 marketplace 的 `plugins/` 下，并在 `marketplace.json` 中添加条目：
-
-```json
-{
-  "name": "hap-app-builder",
-  "source": {
-    "source": "local",
-    "path": "./plugins/hap-app-builder"
-  },
-  "policy": {
-    "installation": "AVAILABLE",
-    "authentication": "ON_INSTALL"
-  },
-  "category": "Productivity"
-}
-```
-
-然后在 Codex TUI 中运行 `/plugins`，选择并安装 **hap-app-builder**。
-
----
-
-### 3. 验证安装
-
-安装完成后，在对话中输入以下内容验证插件是否正常工作：
+安装完成后，在对话中输入以下内容验证是否正常工作：
 
 ```text
 使用 HAP App Builder 帮我设计并搭建一个图书借阅管理应用。
 ```
+
 
 如果插件已正确加载，Agent 会自动读取 `SKILL.md` 并进入方案设计流程。
 
