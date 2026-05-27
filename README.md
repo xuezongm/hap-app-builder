@@ -43,7 +43,7 @@ AI 会自动克隆仓库，识别 `plugin.json` 和 `.mcp.json` 完成安装与 
 
 ### MCP 授权
 
-> 因个人授权不稳定，暂时仍使用 md_pss_id 鉴权
+> 因个人授权暂时仍不稳定，先使用 md_pss_id 鉴权
 
 获取方式：登录 sandbox.mingdao.com，使用浏览器开发者工具（F12→Network），随便刷新页面，点开任意请求，从 Request Headers 中获取 `md_pss_id`。
 
