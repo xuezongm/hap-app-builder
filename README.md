@@ -61,6 +61,7 @@ export MINGDAO_AUTH="你的md_pss_id值"
 hap-app-builder/
 ├── plugin.json                        # Antigravity 插件描述
 ├── .claude-plugin/plugin.json         # Claude Code 插件描述
+├── .codex-plugin/plugin.json          # Codex 插件描述
 ├── .mcp.json                          # MCP 服务配置（沙箱）
 ├── assets/                            # 图标资源
 │   ├── app-icon.png                   # 应用图标
