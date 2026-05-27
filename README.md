@@ -25,10 +25,10 @@
 **在 AI 工具（Antigravity / Claude Code / Codex 等）的对话中输入**：
 
 ```text
-安装这个项目 https://github.com/xuezongm/hap-app-builder ，同时配置好 MCP 服务
+安装技能 https://github.com/xuezongm/hap-app-builder ，同时配置好 MCP 服务
 ```
 
-AI 会自动克隆仓库，识别 `plugin.json` 和 `.mcp.json` 完成skill安装与，并索要`md_pss_id`用于MCP配置。
+AI 会自动克隆仓库，将 `skills/` 目录复制到对应平台的技能目录，并根据 `.mcp.json` 索要 `md_pss_id` 完成 MCP 配置。
 
 > [!IMPORTANT]
 > 安装必须同时完成 **Skill 安装** 和 **MCP 服务配置**，缺一不可。仅安装 skill 而未配置 MCP 服务，搭建将无法执行。
@@ -62,16 +62,15 @@ https://api3.mingdao.com/mcp?Authorization=md_pss_id%20{token}
 ```
 
 
-如果插件已正确加载，Agent 会自动读取 `SKILL.md` 并进入方案设计流程。
+如果技能已正确加载，Agent 会自动读取 `SKILL.md` 并进入方案设计流程。
 
 
 ## 目录结构
 
 ```
 hap-app-builder/
-├── plugin.json                        # Antigravity 插件描述
-├── .claude-plugin/plugin.json         # Claude Code 插件描述
-├── .codex-plugin/plugin.json          # Codex 插件描述
+├── plugin.json                        # 插件/技能元数据
+├── .codex-plugin/plugin.json          # Codex 平台适配
 ├── .mcp.json                          # MCP 服务配置（沙箱）
 ├── skills/                            # Skill 容器
 │   └── hap-app-builder/               # HAP 应用构建 Skill
