@@ -21,10 +21,12 @@
 
 ### 1. 获取 MCP 个人授权
 
-登录sandbox.migndao.com，打开个人账户>个人访问令牌，创建一个授权（选择所有范围），获得授权令牌 `pat_xxxxxxxx`
+> 因个人授权不稳定，暂时仍使用 md_pss_id 鉴权
+
+获取方式：登录sandbox.mingdao.com，使用浏览器开发者工具（F12->Network），随便刷新页面，点开任意请求，从Request headers中获取 `md_pss_id` 值。
 
 ```bash
-export MINGDAO_AUTH="your-token-here"
+export MINGDAO_AUTH="你的md_pss_id值"
 ```
 
 建议将此行添加到 `~/.zshrc` 或 `~/.bashrc` 中持久化。

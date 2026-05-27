@@ -2,7 +2,7 @@
   "mcpServers": {
     "mingdaoSandbox": {
       "type": "streamable-http",
-      "url": "https://api3.mingdao.com/mcp?Authorization=${MINGDAO_AUTH}"
+      "url": "https://api3.mingdao.com/mcp?Authorization=md_pss_id%20${MINGDAO_AUTH}"
     }
   }
 }
