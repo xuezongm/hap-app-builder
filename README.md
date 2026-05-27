@@ -29,10 +29,6 @@
 export MINGDAO_AUTH="你的md_pss_id值"
 ```
 
-建议将此行添加到 `~/.zshrc` 或 `~/.bashrc` 中持久化。
-
----
-
 ### 2. 安装插件
 
 #### Antigravity
