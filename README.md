@@ -37,7 +37,7 @@ AI 会自动克隆仓库，识别 `plugin.json` 和 `.mcp.json` 完成安装与 
 
 | 平台 | 安装方式 | 安装路径 |
 |------|---------|---------|
-| Antigravity | 克隆到本地，打开项目目录 | 项目目录即插件目录 |
+| Antigravity | 克隆到插件目录 | `~/.gemini/config/plugins/hap-app-builder/` |
 | Claude Code | `/install-plugin <git-url>` 或 `--plugin-dir` | `~/.claude/plugins/hap-app-builder/` |
 | Codex | 克隆后复制 skill 目录 | `~/.codex/skills/hap-app-builder/` |
 
