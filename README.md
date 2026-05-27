@@ -22,9 +22,6 @@
 
 ## 安装
 
-> [!IMPORTANT]
-> 安装必须同时完成 **Skill/Plugin 安装** 和 **MCP 服务配置**，缺一不可。仅安装 skill 而未配置 MCP 服务，搭建将无法执行。
-
 在 AI 工具（Antigravity / Claude Code / Codex 等）的对话中输入：
 
 ```text
@@ -32,6 +29,9 @@
 ```
 
 AI 会自动克隆仓库，识别 `plugin.json` 和 `.mcp.json` 完成安装与 MCP 配置。
+
+> [!IMPORTANT]
+> 安装必须同时完成 **Skill/Plugin 安装** 和 **MCP 服务配置**，缺一不可。仅安装 skill 而未配置 MCP 服务，搭建将无法执行。
 
 ### MCP 授权
 
