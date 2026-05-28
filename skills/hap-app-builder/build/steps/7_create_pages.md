@@ -18,7 +18,7 @@
 
 1. 对每个自定义页面，先调用 `create_app_items` 创建空白自定义页面项（挂在指定导航分组下），获得页面 ID
    - `icon`：根据 `pageType` 设定——`dashboard` 传 `"sys_control-panel_traffic"`，`workspace` 传 `"2_3_statistics"`
-2. 再调用 `save_custom_page` 配置其组件
+2. 再调用 `update_custom_page` 配置其组件
 3. 记录 `customPageIdByName`
 
 **⛔ 验证断言**：`customPageIdByName` 条目数 = plan 中自定义页面数量。
@@ -45,7 +45,7 @@
 
 ## 页面配置规范
 
-为每个自定义页面分别调用一次 `save_custom_page`。
+为每个自定义页面分别调用一次 `update_custom_page`。
 
 ### 字段 ID 来源
 
@@ -166,7 +166,7 @@ view × 1～3                     ← 列表视图区
 
 ### 五、文本组件
 
-使用富文本排版输入，对自定义页面的操作和使用指南。一般写 3～6 行。
+使用富文本输入，对自定义页面的操作和使用指南区块。一般写 3～6 行，可包含背景色、颜色、链接、粗体、斜体等格式，请注意样式美观。
 
 ### 六、可读性要求
 
