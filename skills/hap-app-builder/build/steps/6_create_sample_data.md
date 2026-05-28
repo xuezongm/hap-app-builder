@@ -96,11 +96,11 @@
 
 ### 文档类资源
 - **Sample Document.pdf**
-  - 链接：`https://d1.mingdaoyun.cn/doc/202509/74005043-A19F-4704-942B-DC63C13986DA.pdf`
+  - 链接：`https://raw.githubusercontent.com/xuezongm/hap-app-builder/main/skills/hap-app-builder/build/resources/Sample_Document.pdf`
 - **Sample Document.docx**
-  - 链接：`https://d1.mingdaoyun.cn/doc/202509/FF4297A4-7C5F-45CC-982A-CAA5DEE6EFEB.docx`
+  - 链接：`https://raw.githubusercontent.com/xuezongm/hap-app-builder/main/skills/hap-app-builder/build/resources/Sample_Document.docx`
 - **Supplementary Data Table.xlsx**
-  - 链接：`https://d1.mingdaoyun.cn/doc/202509/50E3CEC4-1CA6-4633-9248-4266E1AF685F.xlsx`
+  - 链接：`https://raw.githubusercontent.com/xuezongm/hap-app-builder/main/skills/hap-app-builder/build/resources/Supplementary_Data_Table.xlsx`
 
 ### 图片类资源
 为了保证应用封面的美观度和真实的业务场景感，遇到需要填充图片或附件的场景时，**必须从 `build/resources/sample_images.json` 中获取直链**。
@@ -112,7 +112,7 @@
 
 **关键原则：所有附件类型的字段都必须填充数据！哪怕没有百分百契合的图片，也必须从分类中挑选一个最接近/最不违和的图片进行填充，绝对不允许留空。**
 
-*示例*：`{ "id": "contract_file", "value": [{"name": "2025年度框架采购协议.pdf", "url": "https://d1.mingdaoyun.cn/doc/202509/74005043-A19F-4704-942B-DC63C13986DA.pdf"}] }`
+*示例*：`{ "id": "contract_file", "value": [{"name": "2025年度框架采购协议.pdf", "url": "https://raw.githubusercontent.com/xuezongm/hap-app-builder/main/skills/hap-app-builder/build/resources/Sample_Document.pdf"}] }`
 
 ---
 
