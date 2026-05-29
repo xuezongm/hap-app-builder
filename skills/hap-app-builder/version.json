@@ -1,5 +1,5 @@
 {
-  "version": "1.0.0",
-  "releaseNotes": "初始版本：方案设计 + 11 步物理搭建全流程",
+  "version": "1.1.0",
+  "releaseNotes": "新增自动版本检查与更新提示；统一 Python 运行时；支持 7 个 AI 平台安装",
   "repository": "https://github.com/xuezongm/hap-app-builder"
 }
