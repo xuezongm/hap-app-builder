@@ -25,13 +25,15 @@ project_root = (
 apps_dir = os.path.join(project_root, "apps")
 
 
-def find_plugin_json(start_dir):
-    """向上逐级搜索 plugin.json（兼容完整仓库和仅 skills/ 目录两种安装方式）"""
+def find_version_file(start_dir):
+    """向上逐级搜索版本文件（兼容完整仓库和仅 skills/ 目录两种安装方式）
+    优先查找 plugin.json，其次 version.json"""
     d = start_dir
     for _ in range(6):
-        candidate = os.path.join(d, "plugin.json")
-        if os.path.isfile(candidate):
-            return candidate
+        for name in ("plugin.json", "version.json"):
+            candidate = os.path.join(d, name)
+            if os.path.isfile(candidate):
+                return candidate
         parent = os.path.dirname(d)
         if parent == d:
             break
@@ -85,7 +87,7 @@ def scan_apps():
 
 def check_update():
     """检查 GitHub 远程版本（2 秒超时，失败静默跳过）"""
-    plugin_path = find_plugin_json(SCRIPT_DIR)
+    plugin_path = find_version_file(SCRIPT_DIR)
     if not plugin_path:
         return None
 

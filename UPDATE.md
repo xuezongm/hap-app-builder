@@ -25,8 +25,9 @@ AI Agent 自动执行 git pull
 
 | 文件 | 需更新字段 | 说明 |
 |------|------------|------|
-| `plugin.json`（根目录） | `version` + `releaseNotes` | **必须**。版本检查的数据源 |
-| `.codex-plugin/plugin.json` | `version` + `releaseNotes` | **必须**。与根目录保持同步 |
+| `plugin.json`（根目录） | `version` + `releaseNotes` | **必须**。完整仓库克隆时的版本来源 |
+| `skills/hap-app-builder/version.json` | `version` + `releaseNotes` | **必须**。仅复制 skills/ 安装时的版本来源 |
+| `.codex-plugin/plugin.json` | `version` + `releaseNotes` | **必须**。Codex 平台元数据 |
 
 ### releaseNotes 写法
 
