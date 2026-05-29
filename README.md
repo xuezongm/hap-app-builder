@@ -28,19 +28,16 @@
 安装技能 https://github.com/xuezongm/hap-app-builder ，同时配置好 MCP 服务
 ```
 
-AI 会自动克隆仓库、安装技能并配置 MCP 服务。各平台的安装路径和 MCP 配置格式详见 [INSTALL.md](./INSTALL.md)。
-
-> [!IMPORTANT]
-> 安装必须同时完成 **Skill 安装** 和 **MCP 服务配置**，缺一不可。仅安装 skill 而未配置 MCP 服务，搭建将无法执行。
+AI 会自动克隆仓库、安装技能，并索要 `md_pss_id` 完成 MCP 服务配置。各平台的安装路径和 MCP 配置格式详见 [INSTALL.md](./INSTALL.md)。
 
 ### Token 获取
 
-安装过程中 AI 会向你索要 Token。获取方式：
+> 因个人授权暂时仍不稳定，先使用 md_pss_id 鉴权
 
-1. 登录 [sandbox.mingdao.com](https://sandbox.mingdao.com)
-2. 打开浏览器开发者工具（F12 → Network）
-3. 刷新页面，点开任意请求，从 Request Headers 中复制 `md_pss_id` 的值
-4. 将完整的 Token 粘贴给 AI 即可
+获取方式：登录 sandbox.mingdao.com，使用浏览器开发者工具（F12→Network），随便刷新页面，点开任意请求，从 Request Headers 中获取 md_pss_id。
+
+> [!IMPORTANT]
+> 安装必须同时完成 **Skill 安装** 和 **MCP 服务配置**，缺一不可。仅安装 skill 而未配置 MCP 服务，搭建将无法执行。
 
 ### 验证
 
