@@ -52,7 +52,14 @@ python3 {SKILL_DIR}/plan/scripts/scan_apps.py {PROJECT_ROOT}
   > 📋 更新说明：{notes}
   > 是否立即更新？
 
-  - 用户同意 → 在 `{SKILL_DIR}` 的 git 仓库根目录执行 `git pull`，完成后提示更新成功，然后正常继续
+  - 用户同意 → 执行更新：
+    1. 从 `{SKILL_DIR}` 向上查找 `.git` 目录，判断是否在 git 仓库内
+    2. **如果找到 `.git`**：在该仓库根目录执行 `git pull`
+    3. **如果未找到 `.git`**（仅复制 skills/ 的安装方式）：
+       - 克隆仓库到临时目录：`git clone <repository> /tmp/hap-update`
+       - 将 `skills/hap-app-builder/` 下的文件覆盖复制到 `{SKILL_DIR}/`
+       - 删除临时目录：`rm -rf /tmp/hap-update`
+    4. 提示更新成功，然后正常继续
   - 用户拒绝或跳过 → 正常继续，不阻断流程
 
 根据 `apps` 数组内容，进入以下路径：
