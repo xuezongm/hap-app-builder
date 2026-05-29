@@ -19,7 +19,20 @@ const projectRoot = process.argv[2]
   ? path.resolve(process.argv[2])
   : path.resolve(__dirname, '..', '..', '..', '..');
 const appsDir = path.join(projectRoot, 'apps');
-const pluginPath = path.resolve(__dirname, '..', '..', '..', '..', 'plugin.json');
+
+// 向上逐级搜索 plugin.json（兼容完整仓库和仅 skills/ 目录两种安装方式）
+function findPluginJson(startDir) {
+  let dir = startDir;
+  for (let i = 0; i < 6; i++) {
+    const candidate = path.join(dir, 'plugin.json');
+    if (fs.existsSync(candidate)) return candidate;
+    const parent = path.dirname(dir);
+    if (parent === dir) break; // 到达文件系统根目录
+    dir = parent;
+  }
+  return null;
+}
+const pluginPath = findPluginJson(__dirname);
 
 // --- 扫描已有应用 ---
 const results = [];
@@ -59,6 +72,8 @@ if (fs.existsSync(appsDir)) {
 
 // --- 异步版本检查（2 秒超时，失败静默跳过） ---
 function checkUpdate() {
+  if (!pluginPath) return Promise.resolve(null);
+
   let localVersion, repoUrl;
   try {
     const pkg = JSON.parse(fs.readFileSync(pluginPath, 'utf-8'));
