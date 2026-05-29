@@ -2,13 +2,19 @@
 
 ## Skill 安装
 
-将 `skills/` 目录复制到对应平台的技能目录：
+将仓库中 `skills/hap-app-builder/` 目录复制到对应平台的技能目录：
 
 | 平台 | 技能目录 |
 |------|----------|
 | Antigravity | `~/.gemini/config/plugins/hap-app-builder/` |
 | Claude Code | `~/.claude/skills/hap-app-builder/` |
 | Codex | `~/.codex/skills/hap-app-builder/` |
+| Cursor | `~/.cursor/skills/hap-app-builder/` |
+| Windsurf | `~/.codeium/windsurf/skills/hap-app-builder/` |
+| Trae | `~/.trae/skills/hap-app-builder/` |
+| CodeBuddy | `~/.codebuddy/skills/hap-app-builder/` |
+
+> 部分平台（如 Antigravity）会克隆整个仓库作为插件，此时无需手动复制。
 
 ## MCP 服务配置
 
@@ -42,7 +48,7 @@
 
 文件：`~/.mcp.json`
 
-- 字段名用 `url`
+- 外层键名为 `mcpServers`
 - 需要 `type` 字段
 - 支持 `${VAR}` 环境变量
 
@@ -51,6 +57,72 @@
   "mcpServers": {
     "mingdaoSandbox": {
       "type": "streamable-http",
+      "url": "https://api3.mingdao.com/mcp?Authorization=md_pss_id%20{替换为你的Token}"
+    }
+  }
+}
+```
+
+#### Cursor
+
+文件：`~/.cursor/mcp.json`
+
+- 格式与 Claude Code 基本一致，外层键名为 `mcpServers`
+- 支持 `headers` 字段传递鉴权（也可直接拼在 URL 中）
+
+```json
+{
+  "mcpServers": {
+    "mingdaoSandbox": {
+      "url": "https://api3.mingdao.com/mcp?Authorization=md_pss_id%20{替换为你的Token}"
+    }
+  }
+}
+```
+
+#### Windsurf
+
+文件：`~/.codeium/windsurf/mcp_config.json`
+
+- 格式与 Claude Code 基本一致，外层键名为 `mcpServers`
+
+```json
+{
+  "mcpServers": {
+    "mingdaoSandbox": {
+      "serverUrl": "https://api3.mingdao.com/mcp?Authorization=md_pss_id%20{替换为你的Token}"
+    }
+  }
+}
+```
+
+#### Trae
+
+文件：`~/.trae/mcp.json`
+
+- 格式与 Claude Code 一致，外层键名为 `mcpServers`
+
+```json
+{
+  "mcpServers": {
+    "mingdaoSandbox": {
+      "url": "https://api3.mingdao.com/mcp?Authorization=md_pss_id%20{替换为你的Token}"
+    }
+  }
+}
+```
+
+#### CodeBuddy（腾讯云代码助手）
+
+文件：`~/.codebuddy/settings.json`
+
+- 外层键名为 `mcpServers`
+- 也可通过 IDE 界面 Settings → MCP → Add MCP 配置
+
+```json
+{
+  "mcpServers": {
+    "mingdaoSandbox": {
       "url": "https://api3.mingdao.com/mcp?Authorization=md_pss_id%20{替换为你的Token}"
     }
   }
