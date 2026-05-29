@@ -33,7 +33,7 @@
 * **`appIcon`**：应用图标，必须严格从 `plan/icon_and_style_guide.md` 中挑选契合业务语义的预设图标。
 * **`appColor`**：应用主题色，必须且只能使用 `plan/icon_and_style_guide.md` 中提供的 9 种官方高端 Hex 色值。**只有应用本身有颜色**，工作表、自定义页面、AI 助手均无颜色属性。
 * **`navColor`**：导航栏颜色，若使用 `appColor` 代表导航栏使用应用主题色。
-* **`enableExternalPortal`**：是否启用外部门户。`true` 表示启用外部门户（若规划了外部门户角色 `isExternalPortal: true`，此项必须为 `true`）；`false` 或不传表示不启用。
+* **`enableExternalPortal`**：是否启用外部门户。`true` 表示启用外部门户（若规划了外部门户角色 `"roleScope": "externalPortal"`，此项必须为 `true`）；`false` 或不传表示不启用。
 
 ---
 
@@ -137,7 +137,7 @@
 
 - `name`：角色名称
 - `description`：一句话说明该角色的职责定位与权限范围（如「负责日常借阅登记与归还操作的前台工作人员」）
-- `isExternalPortal`：`true` =外部门户角色；不传=本组织角色
+- `roleScope`：角色类型。`"general"` = 组织内部角色（默认）；`"externalPortal"` = 外部门户角色
 - `permissions`：紧凑字符串数组，格式 `"名称(类型)"`，如 `"图书(worksheet)"`、`"运营看板(customPage)"`
 
 ## 七、`aiAssistants`
