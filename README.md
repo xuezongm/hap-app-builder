@@ -28,30 +28,19 @@
 安装技能 https://github.com/xuezongm/hap-app-builder ，同时配置好 MCP 服务
 ```
 
-AI 会自动克隆仓库，将 `skills/` 目录复制到对应平台的技能目录，并根据 `.mcp.json` 索要 `md_pss_id` 完成 MCP 配置。
+AI 会自动克隆仓库、安装技能并配置 MCP 服务。各平台的安装路径和 MCP 配置格式详见 [INSTALL.md](./INSTALL.md)。
 
 > [!IMPORTANT]
 > 安装必须同时完成 **Skill 安装** 和 **MCP 服务配置**，缺一不可。仅安装 skill 而未配置 MCP 服务，搭建将无法执行。
 
-#### 各平台安装路径与 MCP 配置
+### Token 获取
 
-| 平台 | Skill 安装路径 | MCP 配置写入位置 |
-|------|---------------|-----------------|
-| Antigravity | `~/.gemini/config/plugins/hap-app-builder/` | `~/.gemini/config/mcp_config.json` |
-| Claude Code | `~/.claude/skills/hap-app-builder/` | `~/.mcp.json` |
-| Codex | `~/.codex/skills/hap-app-builder/` | `~/.codex/config.toml` |
+安装过程中 AI 会向你索要 Token。获取方式：
 
-### MCP 授权
-
-> 因个人授权暂时仍不稳定，先使用 md_pss_id 鉴权
-
-获取方式：登录 sandbox.mingdao.com，使用浏览器开发者工具（F12→Network），随便刷新页面，点开任意请求，从 Request Headers 中获取 `md_pss_id`。
-
-获取到 `md_pss_id` 后，**直接写入对应平台的 MCP 配置文件**。`md_pss_id` 原始格式为 `md_pss_id {token}`（中间有空格），写入 URL 时空格需转为 `%20`：
-
-```
-https://api3.mingdao.com/mcp?Authorization=md_pss_id%20{token}
-```
+1. 登录 [sandbox.mingdao.com](https://sandbox.mingdao.com)
+2. 打开浏览器开发者工具（F12 → Network）
+3. 刷新页面，点开任意请求，从 Request Headers 中复制 `md_pss_id` 的值
+4. 将完整的 Token 粘贴给 AI 即可
 
 ### 验证
 
@@ -64,6 +53,11 @@ https://api3.mingdao.com/mcp?Authorization=md_pss_id%20{token}
 
 如果技能已正确加载，Agent 会自动读取 `SKILL.md` 并进入方案设计流程。
 
+## 自动更新
+
+每次启动时，技能会自动检测 GitHub 上是否有新版本。如果检测到更新，AI 会展示更新说明并询问是否立即更新——同意后自动完成，无需手动操作。
+
+> 版本检查为异步请求（2 秒超时），网络不通时静默跳过，不影响正常使用。
 
 ## 目录结构
 

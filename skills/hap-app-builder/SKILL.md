@@ -45,7 +45,17 @@ node {SKILL_DIR}/plan/scripts/scan_apps.cjs {PROJECT_ROOT}
 
 > `{SKILL_DIR}` 是本 SKILL.md 文件所在的目录路径。各 IDE 请自行解析。
 
-根据扫描结果，进入以下路径：
+脚本输出 JSON 对象 `{ apps: [...], update?: {...} }`：
+- `apps`：已有应用列表，用于下方路由判断
+- `update`：版本检查结果（网络超时则不存在）。若 `update.available` 为 `true`，向用户提示：
+  > 🔄 HAP 应用构建器有新版本（当前 {local} → 最新 {remote}）
+  > 📋 更新说明：{notes}
+  > 是否立即更新？
+
+  - 用户同意 → 在 `{SKILL_DIR}` 的 git 仓库根目录执行 `git pull`，完成后提示更新成功，然后正常继续
+  - 用户拒绝或跳过 → 正常继续，不阻断流程
+
+根据 `apps` 数组内容，进入以下路径：
 
 ---
 
