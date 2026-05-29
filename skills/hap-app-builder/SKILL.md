@@ -40,7 +40,7 @@ AI 必须首先尝试调用连接到 `api3.mingdao.com` 的 MCP 服务中的 `ge
 找到本 SKILL.md 所在目录，执行其中的扫描脚本：
 
 ```bash
-node {SKILL_DIR}/plan/scripts/scan_apps.cjs {PROJECT_ROOT}
+python3 {SKILL_DIR}/plan/scripts/scan_apps.py {PROJECT_ROOT}
 ```
 
 > `{SKILL_DIR}` 是本 SKILL.md 文件所在的目录路径。各 IDE 请自行解析。

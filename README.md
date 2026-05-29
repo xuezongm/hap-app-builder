@@ -18,7 +18,7 @@
 ## 前置依赖
 
 - 明道云沙盒 MCP 个人授权
-- Python 3.9+（用于 `generate_fill_templates.py` 脚本）
+- Python 3.9+（用于搭建脚本和启动扫描）
 
 ## 安装
 
@@ -72,7 +72,7 @@ hap-app-builder/
 │       │   ├── 1a_plan_overview.md
 │       │   ├── 1b_plan_schema.md
 │       │   ├── icon_and_style_guide.md
-│       │   └── scripts/scan_apps.cjs
+│       │   └── scripts/scan_apps.py
 │       └── build/                     # 物理搭建
 │           ├── SKILL.md
 │           ├── CONTEXT.md

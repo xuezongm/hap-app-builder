@@ -2,7 +2,7 @@
 
 ## 工作原理
 
-用户每次启动技能时，前置检查阶段会执行 `scan_apps.cjs` 脚本。该脚本在扫描已有应用的同时，异步请求 GitHub 远程仓库的 `plugin.json`，比对 `version` 字段：
+用户每次启动技能时，前置检查阶段会执行 `scan_apps.py` 脚本。该脚本在扫描已有应用的同时，请求 GitHub 远程仓库的 `plugin.json`，比对 `version` 字段：
 
 ```
 本地 plugin.json (version: 1.0.0)
@@ -44,5 +44,5 @@ AI Agent 自动执行 git pull
 | 文件 | 职责 |
 |------|------|
 | `plugin.json` | 存储 `version`、`releaseNotes`、`repository` |
-| `skills/.../plan/scripts/scan_apps.cjs` | 执行版本检查，输出 `update` 字段 |
+| `skills/.../plan/scripts/scan_apps.py` | 执行版本检查，输出 `update` 字段 |
 | `skills/.../SKILL.md` | 指导 AI Agent 处理 `update` 字段并交互 |
