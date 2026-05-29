@@ -26,6 +26,12 @@
 
 ## 权限推理规则
 
+### roleScope（角色类型参数映射）
+
+当调用 `create_role` 时，根据 `hap-plan.json` 中该角色的属性，传入对应的类型：
+- 若 `isExternalPortal` 为 `true`，`roleScope` 参数必须传 `"externalPortal"`。
+- 若 `isExternalPortal` 为 `false` 或不传，`roleScope` 参数必须传 `"general"`。
+
 ### permissionScope（强制使用 0）
 
 > [!CAUTION]

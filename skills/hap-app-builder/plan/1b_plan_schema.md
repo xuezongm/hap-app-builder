@@ -16,6 +16,7 @@
   "appColor": "主题色，如 #2196F3",
   "navLayout": "group | tree | top | card",
   "navColor": "appColor | white | gray | black",
+  "enableExternalPortal": true,
   "worksheets": [],
   "worksheetViews": [],
   "worksheetCustomActions": [],
@@ -32,12 +33,15 @@
 * **`appIcon`**：应用图标，必须严格从 `plan/icon_and_style_guide.md` 中挑选契合业务语义的预设图标。
 * **`appColor`**：应用主题色，必须且只能使用 `plan/icon_and_style_guide.md` 中提供的 9 种官方高端 Hex 色值。**只有应用本身有颜色**，工作表、自定义页面、AI 助手均无颜色属性。
 * **`navColor`**：导航栏颜色，若使用 `appColor` 代表导航栏使用应用主题色。
+* **`enableExternalPortal`**：是否启用外部门户。`true` 表示启用外部门户（若规划了外部门户角色 `isExternalPortal: true`，此项必须为 `true`）；`false` 或不传表示不启用。
 
 ---
 
 ## 一、`worksheets`
 
-每张工作表必须包含 `icon` 字段，从 `plan/icon_and_style_guide.md` 中挑选最契合业务语义的图标。不同工作表应尽量使用不同图标，避免全部雷同。
+每张工作表必须包含：
+- `icon`：从 `plan/icon_and_style_guide.md` 中挑选最契合业务语义的图标。不同工作表应尽量使用不同图标，避免全部雷同
+- `description`：一句话说明该表的业务定位与核心用途（如「记录每一笔图书借阅与归还事件」）
 
 ### `fields`（紧凑字符串数组）
 
@@ -99,9 +103,10 @@
 ## 四、`customPages[].components`（紧凑字符串数组）
 
 1. 必须指定 `pageType`：`"dashboard"`（数据统计）或 `"workspace"`（工作台）
-2. **图标固定**：`dashboard` 固定使用 `"sys_control-panel_traffic"`，`workspace` 固定使用 `"2_3_statistics"`。无需从 icon guide 挑选
-3. 组件格式：`"组件名(Type)"`
-4. **命名规范**：组件名称必须具体反映业务含义，严禁使用"按钮1"、"业务分析"等模糊命名
+2. `description`：一句话说明该页面的业务目的与目标用户（如「面向管理层的借阅数据全局统计看板」）
+3. **图标固定**：`dashboard` 固定使用 `"sys_control-panel_traffic"`，`workspace` 固定使用 `"2_3_statistics"`。无需从 icon guide 挑选
+4. 组件格式：`"组件名(Type)"`
+5. **命名规范**：组件名称必须具体反映业务含义，严禁使用"按钮1"、"业务分析"等模糊命名
 
 **dashboard 页面要求：**
 - 固定包含 4 或 6 个 `NumberChart`，2～6 个业务图表，1～2 个 `PivotTable`
@@ -114,7 +119,8 @@
 
 ## 五、`workflows`
 
-1. `trigger.type`：`worksheet_event` / `schedule` / `date_field`
+1. `description`：一句话说明该工作流的业务目标（如「借阅到期前 1 天自动提醒借阅人归还」）
+2. `trigger.type`：`worksheet_event` / `schedule` / `date_field`
 2. `trigger.label`：触发节点展示文字，如「借阅记录新增时」
 3. `trigger.source`：`worksheet_event` → 工作表名称；`date_field` → `工作表名称（日期字段名）`；`schedule` → `""`
 4. `intentHints` 是**业务效果与约束**数组，不要写成节点步骤：
@@ -125,13 +131,21 @@
    - **禁止引用具体字段选项值**（如「全部借出」），只描述业务目标
 5. **不输出** `CustomAction` 触发类型的工作流到此处，它们已内嵌在 `worksheetCustomActions` 的 `intentHints` 中
 
-## 六、`roles[].permissions`（紧凑字符串数组）
+## 六、`roles`
 
-格式：`"名称(类型)"`，如 `"图书(worksheet)"`、`"运营看板(customPage)"`
+角色对象下字段：
+
+- `name`：角色名称
+- `description`：一句话说明该角色的职责定位与权限范围（如「负责日常借阅登记与归还操作的前台工作人员」）
+- `isExternalPortal`：`true` =外部门户角色；不传=本组织角色
+- `permissions`：紧凑字符串数组，格式 `"名称(类型)"`，如 `"图书(worksheet)"`、`"运营看板(customPage)"`
 
 ## 七、`aiAssistants`
 
-直接复用总览「AI 助手」章节的内容；总览中没有时传空数组 `[]`。**图标固定使用 `"17_6_reddit"`**，无需从 icon guide 挑选。
+直接复用总览「AI 助手」章节的内容；总览中没有时传空数组 `[]`。
+
+1. `description`：一句话说明该助手的服务场景与能力范围（如「帮助读者查询图书库存、推荐书目、解答借阅规则」）
+2. **图标固定使用 `"17_6_reddit"`**，无需从 icon guide 挑选
 
 ## 八、`navGroups`
 
