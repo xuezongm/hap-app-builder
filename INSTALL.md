@@ -46,7 +46,7 @@
 
 #### Claude Code
 
-文件：`~/.mcp.json`
+文件：`~/.claude.json`
 
 - 外层键名为 `mcpServers`
 - 需要 `type` 字段
