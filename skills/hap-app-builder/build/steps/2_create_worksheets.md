@@ -14,7 +14,9 @@
 
 1. 先建被引用表（无关联依赖的主数据表），再建引用方（含 Relation 字段的业务表）
 2. 每张表调用 `create_worksheet`，传入对应的 `sectionId`、`icon`
-3. 固定设置 `createDefaultView: false`（默认视图在后续步骤单独创建）
+3. **必须传入 `remark`**：根据 plan 中该工作表的 `description`，生成一句面向开发者/AI 的工作表描述
+4. 按需传入 `importantNote`：当工作表有重要的使用注意事项时（如"请勿手动修改状态字段"），设置此参数显示在表标题下方。`importantNoteColor` 一般用 `"#515151"`，警告类用 `"#fd5546"`
+5. 固定设置 `createDefaultView: false`（默认视图在后续步骤单独创建）
 4. 记录返回的 `worksheetId`，存入 `worksheetIdByName[表名]`
 5. 更新 `hap-context.json`：写入 `worksheetIdByName`（不写 `progress`，由调度器统一管理）
 
@@ -170,12 +172,12 @@ span:6 示例（语义成对）：
 
 根据业务场景从下表选择：
 
-| displayMode | 适用场景 | 备注 |
-|---|---|---|
-| `dropdown` | 仅作为数据选择，无需展示详情 | |
-| `card` | 选择数据并展示关键字段（**默认推荐**） | 可设 coverField |
-| `inlineTable` | 多条记录、需直接查看/操作 | 适合子表式展示 |
-| `tabTable` | 大量记录、需独立管理 | 放在表单最末尾 |
+| displayMode | 适用场景 | 对应表类型 | 备注 |
+|---|---|---|---|
+| `dropdown` | 关联目标是**字典/分类/标签表**（数据源表），仅选择引用、无需展示详情 | 如 `图书类型`、`客户级别`、`任务状态` | 条目少、结构简单 |
+| `card` | 关联目标是**核心业务表**（实体表），需展示关键字段（**默认推荐**） | 如 `图书清单`、`订单`、`客户`、`项目` | 可设 coverField |
+| `inlineTable` | 多条记录、需直接查看/操作 | 子表式业务明细（如 `订单明细`） | 适合子表式展示 |
+| `tabTable` | 大量记录、需独立管理 | 一对多且量大（如 `操作日志`） | 放在表单最末尾 |
 
 - **`config.showFields`**（条件必填）
 
@@ -260,6 +262,35 @@ targetWorksheet == "selfRelation"
 | Location | — | — | `currentLocation` | ✅ |
 
 > AutoNumber / Formula / Attachment / Relation / Divider 不支持 defaultValue。
+
+### 九、字段辅助文本规范
+
+#### placeholder（必填）
+
+所有输入型字段**必须设置 placeholder**，引导用户了解应输入什么内容。
+
+支持的字段类型：`Text`、`Number`、`Email`、`PhoneNumber`、`LandlinePhone`、`Dropdown`、`Date`、`DateTime`、`Time`
+
+| 字段类型 | placeholder 示例 |
+|---|---|
+| Text（名称类） | "请输入客户全称" |
+| Text（描述类） | "请简要描述问题现象和影响范围" |
+| Number | "请输入数量" |
+| PhoneNumber | "请输入手机号" |
+| Email | "请输入邮箱地址" |
+| Date/DateTime | "请选择日期" |
+| Dropdown | "请选择" |
+
+#### desc（按需设置）
+
+面向用户的字段输入说明，显示在字段下方。当字段的填写有特殊规则、格式要求或业务约束时设置。
+
+示例：金额字段 → "含税金额，精确到分"；地址字段 → "请填写完整的街道门牌号"
+
+#### remark（按需设置）
+
+面向开发者/AI 的字段注释，描述字段用途、引用关系和注意事项。当字段被工作流读写、被视图筛选依赖、或有特殊业务逻辑时设置。
+
 ---
 
 ## 执行原则
