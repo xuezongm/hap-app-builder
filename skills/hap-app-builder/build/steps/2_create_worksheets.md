@@ -13,17 +13,39 @@
 按依赖顺序逐张创建工作表：
 
 1. 先建被引用表（无关联依赖的主数据表），再建引用方（含 Relation 字段的业务表）
-2. 每张表调用 `create_worksheet`，传入对应的 `sectionId`、`icon`
-3. **必须传入 `remark`**：根据 plan 中该工作表的 `description`，生成一句面向开发者/AI 的工作表描述
-4. 按需传入 `importantNote`：当工作表有重要的使用注意事项时（如"请勿手动修改状态字段"），设置此参数显示在表标题下方。`importantNoteColor` 一般用 `"#515151"`，警告类用 `"#fd5546"`
-5. 固定设置 `createDefaultView: false`（默认视图在后续步骤单独创建）
+2. 每张表调用 `create_worksheet`，传入对应的 `sectionId`、`icon`，以及 `remark`、`desc`、`importantNote` 等参数（参数规则见下方）
+3. 固定设置 `createDefaultView: false`（默认视图在后续步骤单独创建）
 4. 记录返回的 `worksheetId`，存入 `worksheetIdByName[表名]`
 5. 更新 `hap-context.json`：写入 `worksheetIdByName`（不写 `progress`，由调度器统一管理）
 
 **⛔ 验证断言**：`worksheetIdByName` 条目数 = plan 中工作表数量，每个值均为 24 位物理 ID。
 
-
 ---
+
+## 工作表参数规则
+
+### remark（必填）
+
+面向开发者/AI 的工作表描述。根据 plan 中该工作表的 `description`，生成一句简洁的描述，说明该表的业务定位与核心用途。
+
+### desc（按需设置）
+
+面向用户的工作表使用说明（**必须使用原生 HTML + 行内 CSS 编写，禁止使用 Markdown**）。当工作表的使用有需要特别说明的内容时设置，例如：
+
+- 数据录入注意事项（哪些字段必填、填写顺序）
+- 数据流转说明（录入后会触发什么流程、数据会流向哪里）
+- 业务规则提示（如"结账前必须先完成服务确认"）
+
+### importantNote（按需设置）
+
+显示在工作表标题下方的重要提示文本。当工作表有需要用户每次打开都看到的关键提醒时设置（如"请勿手动修改状态字段，状态由系统自动更新"）。
+
+- `importantNoteColor`：一般信息用 `"#515151"`（深灰），警告类用 `"#fd5546"`（红色）
+
+### createDefaultView（固定 false）
+
+固定设置为 `false`，禁止自动创建默认视图。视图在后续步骤（Step 5）中单独创建和配置。
+
 
 ## 字段设计规范
 
@@ -61,7 +83,32 @@
 人员 → Collaborator（不要用 Text 替代）
 电话 → PhoneNumber，邮箱 → Email，金额 → Currency
 流水号 → AutoNumber，计算值 → Formula
+日期差/时长计算 → DateFormula（如工龄、逾期天数、项目周期）
 ```
+
+### alias 生成规则
+
+每个字段必须设置 `alias`，命名约定：
+- 全局唯一前缀 `biz_`
+- 后缀由字段语义对应的英文短词组成（snake_case），如 `biz_visitor_name` / `biz_visit_time` / `biz_status`
+- 不要重复，同表内 alias 必须唯一
+
+### required 约束
+
+AutoNumber、Formula、Divider **不得设置** `required: true`，否则工作表创建会失败。
+
+### Formula 引用规则
+
+Formula 的 `expression` 中引用其他字段必须用 `$alias$` 包裹，不能用 `name`。先确定所有字段 alias，再写 expression。
+
+示例：`"$biz_total_amount$ * (1 - $biz_discount_rate$)"`
+
+### AutoNumber 常用模板
+
+- 纯流水号：`[{ type: "sequence", length: 6, repeat: "never" }]`
+- 日期 + 流水：`[{ type: "createdTime", format: "yyyyMMdd" }, { type: "sequence", length: 4, repeat: "day" }]`
+- 前缀 + 流水：`[{ type: "text", value: "ORD-" }, { type: "sequence", length: 6, repeat: "never" }]`
+
 
 ### 选项值解析规则
 
@@ -290,13 +337,3 @@ targetWorksheet == "selfRelation"
 #### remark（按需设置）
 
 面向开发者/AI 的字段注释，描述字段用途、引用关系和注意事项。当字段被工作流读写、被视图筛选依赖、或有特殊业务逻辑时设置。
-
----
-
-## 执行原则
-
-- 严格按依赖顺序建表
-- Relation 字段目标表未创建时，跳过该字段
-- AutoNumber、Formula、Divider 不设 `required: true`
-- 不要凭空假设 ID，只使用工具返回结果
-- `createDefaultView` 设置为 `false`
