@@ -116,6 +116,7 @@
 **workspace 页面要求：**
 - 主要是 `Button`（4～6 个）和 `View`（2～4 个）
 - 可辅以 `Text`、`Carousel`、`Section`
+- 展示型推荐内容（如新书推荐、热门商品、精选案例）应使用 `Carousel` 而非 `View`。
 
 ## 五、`workflows`
 
